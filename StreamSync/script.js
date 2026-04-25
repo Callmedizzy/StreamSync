@@ -64,21 +64,22 @@
         // --- 3. UI RENDERING & LOGIC ---
 
         // Generate Movie Card HTML
-        function createMovieCard(movie) {
+        function createMovieCard(movie, index = 0) {
+            let badge = '';
+            if (index < 3) badge = `<div class="badge-top10">TOP 10</div>`;
+            else if (Math.random() > 0.7) badge = `<div class="badge-new">Recently Added</div>`;
+
             return `
                 <div class="movie-card" onclick="goToDetail(${movie.id})">
-                    <div class="rating-badge">⭐ ${movie.rating}</div>
-                    <img src="${movie.thumb}" alt="${movie.title}" class="movie-thumb" loading="lazy">
+                    ${badge}
+                    <img src="${movie.thumb.replace('300/450', '400/225')}" alt="${movie.title}" class="movie-thumb" loading="lazy">
                     <div class="movie-info">
-                        <h3 class="movie-title">${movie.title}</h3>
-                        <div class="movie-meta-card">
-                            <span>${movie.year}</span>
-                            <span>${movie.genre}</span>
-                        </div>
+                        ${movie.title}
                     </div>
                 </div>
             `;
         }
+
 
         // Home View
         function renderHome() {
@@ -97,7 +98,7 @@
 
             // Trending (Sort by rating)
             const trending = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
-            document.getElementById('grid-trending').innerHTML = trending.map(createMovieCard).join('');
+            document.getElementById('grid-trending').innerHTML = trending.map((m, i) => createMovieCard(m, i)).join('');
 
             // AI Recommendation
             let aiMovies = [];
@@ -114,7 +115,7 @@
                 document.getElementById('ai-genre-label').innerText = `(Berdasarkan Rating Tertinggi Global)`;
                 aiMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
             }
-            document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 6).map(createMovieCard).join('');
+            document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 6).map((m, i) => createMovieCard(m, i + 3)).join('');
         }
 
         // Search View
@@ -132,7 +133,7 @@
             const emptyState = document.getElementById('search-empty');
 
             if (filtered.length > 0) {
-                grid.innerHTML = filtered.map(createMovieCard).join('');
+                grid.innerHTML = filtered.map((m, i) => createMovieCard(m, i + 3)).join('');
                 grid.classList.remove('hidden');
                 emptyState.classList.add('hidden');
             } else {
@@ -439,3 +440,14 @@
         // --- INIT APP ---
         updateNavState();
         switchView('view-home');
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });

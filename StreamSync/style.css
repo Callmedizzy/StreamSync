@@ -2,14 +2,14 @@
            CSS DESIGN SYSTEM & RESET
            ========================================================================== */
         :root {
-            --bg-base: #0a0f0c;
-            --bg-surface: #131f16;
-            --bg-surface-hover: #1c2e21;
-            --primary: #1ed760;
-            --primary-hover: #1db954;
+            --bg-base: #141414;
+            --bg-surface: #181818;
+            --bg-surface-hover: #232323;
+            --primary: #E50914;
+            --primary-hover: #f40612;
             --text-main: #ffffff;
             --text-muted: #a0aab2;
-            --border-color: #243b29;
+            --border-color: #333333;
             --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -68,13 +68,13 @@
         .btn-primary {
             background: var(--primary);
             color: #000;
-            box-shadow: 0 4px 15px rgba(30, 215, 96, 0.3);
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
         }
 
         .btn-primary:hover {
             background: var(--primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(30, 215, 96, 0.4);
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
         }
 
         .btn-outline {
@@ -113,7 +113,7 @@
         textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(30, 215, 96, 0.2);
+            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
         }
 
         /* ==========================================================================
@@ -125,11 +125,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 15, 12, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: transparent;
+            transition: background 0.3s ease;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+        }
+        header.scrolled {
+            background: #141414;
         }
 
         nav {
@@ -187,7 +188,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, var(--bg-base) 0%, rgba(10, 15, 12, 0.6) 50%, transparent 100%);
+            background: linear-gradient(90deg, rgba(20,20,20,0.8) 0%, transparent 100%);
         }
 
         .hero::after {
@@ -197,7 +198,7 @@
             left: 0;
             right: 0;
             height: 150px;
-            background: linear-gradient(0deg, var(--bg-base) 0%, transparent 100%);
+            background: linear-gradient(0deg, #141414 0%, transparent 100%);
         }
 
         .hero-content {
@@ -246,82 +247,98 @@
             border-radius: 2px;
         }
 
-        /* Movie Grid */
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+        
+        /* Movie Row */
+        .movie-row {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            padding: 20px 0;
+            scrollbar-width: none;
         }
-
+        .movie-row::-webkit-scrollbar {
+            display: none;
+        }
+        .movie-row.wrap {
+            flex-wrap: wrap;
+        }
         .movie-card {
+            flex: 0 0 auto;
+            width: 220px;
+            height: 124px;
             background: var(--bg-surface);
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 4px;
+            overflow: visible;
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
-            border: 1px solid transparent;
         }
-
         .movie-card:hover {
-            transform: scale(1.03) translateY(-5px);
-            border-color: var(--border-color);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
             z-index: 10;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
         }
-
         .movie-thumb {
             width: 100%;
-            height: 330px;
+            height: 100%;
             object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .movie-card:hover .movie-thumb {
-            filter: brightness(0.8);
-        }
-
-        .movie-info {
-            padding: 15px;
-            background: linear-gradient(0deg, var(--bg-surface) 60%, transparent 100%);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            transform: translateY(100%);
-            transition: var(--transition);
-        }
-
-        .movie-card:hover .movie-info {
-            transform: translateY(0);
-        }
-
-        .movie-title {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .movie-meta-card {
-            font-size: 0.85rem;
-            color: var(--primary);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .rating-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            color: var(--primary);
-            padding: 4px 8px;
             border-radius: 4px;
-            font-weight: 700;
+            transition: var(--transition);
+        }
+        .movie-info {
+            display: none;
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
             font-size: 0.9rem;
-            backdrop-filter: blur(4px);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
+            padding: 5px 0;
+            border-radius: 4px;
+        }
+        .movie-card:hover .movie-info {
+            display: block;
+        }
+        .badge-top10 {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+        .badge-new {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+        .hero-badge {
+            display: inline-block;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .hero-volume {
+            position: absolute;
+            bottom: 150px;
+            right: 5%;
+            z-index: 5;
         }
 
         /* Detail View */
@@ -396,10 +413,15 @@
         }
 
         .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 5px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            transition: background 0.3s ease;
+            z-index: 1000;
+        }
+        header.scrolled {
+            background: #141414;
         }
 
         .comment-avatar {
@@ -436,7 +458,7 @@
         .price-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(30, 215, 96, 0.1);
+            box-shadow: 0 20px 40px rgba(229, 9, 20, 0.1);
         }
 
         .price-card.premium::before {
@@ -502,10 +524,15 @@
         }
 
         .poll-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-weight: 500;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            transition: background 0.3s ease;
+            z-index: 1000;
+        }
+        header.scrolled {
+            background: #141414;
         }
 
         .poll-bar-bg {
@@ -550,7 +577,7 @@
         }
 
         .admin-table th {
-            background: rgba(30, 215, 96, 0.1);
+            background: rgba(229, 9, 20, 0.1);
             color: var(--primary);
             font-weight: 600;
         }
@@ -613,4 +640,8 @@
             .btn {
                 width: 100%;
             }
+        }
+
+        .container-fluid {
+            padding: 0 4%;
         }
