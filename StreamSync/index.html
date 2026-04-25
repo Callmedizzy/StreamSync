@@ -1,1274 +1,1479 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamSync - Streaming Masa Depan</title>
-    <!-- Google Fonts for Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="StreamSync - Platform streaming video terbaik dengan fitur Watch Party, Rekomendasi AI, dan Komunitas Lokal">
+    <title>StreamSync | Streaming Platform</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Dark Theme with Neon Green Accents */
+        /* ==========================================================================
+           CSS DESIGN SYSTEM & RESET
+           ========================================================================== */
         :root {
-            --bg-base: #09090b;
-            --bg-surface: #18181b;
-            --bg-surface-glass: rgba(24, 24, 27, 0.7);
-            --primary: #00d26a;
-            --primary-hover: #00b359;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --border: #27272a;
-            --danger: #ef4444;
+            --bg-base: #0a0f0c;
+            --bg-surface: #131f16;
+            --bg-surface-hover: #1c2e21;
+            --primary: #1ed760;
+            --primary-hover: #1db954;
+            --text-main: #ffffff;
+            --text-muted: #a0aab2;
+            --border-color: #243b29;
+            --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
             background-color: var(--bg-base);
             color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Glassmorphism Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg-surface-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            transition: all 0.3s ease;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-main);
-            cursor: pointer;
-            letter-spacing: -0.5px;
-        }
-
-        .logo span {
+        a {
             color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
+        a:hover {
+            color: var(--primary-hover);
         }
 
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
         .btn {
-            background: var(--primary);
-            color: var(--bg-base);
+            display: inline-block;
+            padding: 12px 24px;
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-align: center;
         }
 
-        .btn:hover {
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(30, 215, 96, 0.3);
+        }
+
+        .btn-primary:hover {
             background: var(--primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 210, 106, 0.3);
+            box-shadow: 0 6px 20px rgba(30, 215, 96, 0.4);
         }
 
         .btn-outline {
             background: transparent;
-            color: var(--primary);
             border: 2px solid var(--primary);
+            color: var(--primary);
         }
 
         .btn-outline:hover {
-            background: rgba(0, 210, 106, 0.1);
+            background: var(--primary);
+            color: #000;
         }
 
-        /* Main Container */
-        main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
         }
 
-        .page {
-            display: none;
-            padding: 2rem 5%;
-            animation: fadeIn 0.4s ease forwards;
+        /* Forms & Inputs */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
         }
 
-        .page.active {
-            display: block;
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(30, 215, 96, 0.2);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ==========================================================================
+           LAYOUT & COMPONENTS
+           ========================================================================== */
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 12, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 60vh;
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            padding: 3rem;
-            background: linear-gradient(to top, var(--bg-base) 0%, transparent 100%), url('https://picsum.photos/1920/1080?random=1') center/cover;
-            margin-bottom: 3rem;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Section Titles */
-        .section-header {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            padding: 15px 5%;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            border-left: 4px solid var(--primary);
-            padding-left: 10px;
-        }
-
-        /* Movie Grid */
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .movie-card {
-            background: var(--bg-surface);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid var(--border);
-        }
-
-        .movie-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            border-color: var(--primary);
-        }
-
-        .movie-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .movie-info {
-            padding: 1rem;
-        }
-
-        .movie-title {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .movie-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .movie-rating {
-            color: #fbbf24;
-            font-weight: bold;
-        }
-
-        /* Search Page */
-        .search-bar-container {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-inline: auto;
-        }
-
-        .input-field {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: var(--bg-surface);
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-field:focus {
-            border-color: var(--primary);
-        }
-
-        /* Watch Page */
-        .watch-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .video-player-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
-            height: 0;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .video-player-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .movie-details-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .movie-title-large {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        /* Watch Party & Comments */
-        .community-section {
-            background: var(--bg-surface);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-        }
-
-        .comment-list {
-            margin-top: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .comment-item {
-            background: rgba(255,255,255,0.03);
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .comment-author {
-            font-weight: 600;
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--primary);
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
+            letter-spacing: -1px;
+            cursor: pointer;
         }
 
-        .comment-form {
+        nav ul {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Packages */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .package-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .package-card.popular {
-            border-color: var(--primary);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 210, 106, 0.15);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .package-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1.5rem 0;
-        }
-
-        .package-features {
             list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
+            gap: 30px;
         }
 
-        .package-features li {
-            margin-bottom: 0.8rem;
+        nav ul li a {
             color: var(--text-muted);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--text-main);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Hero Banner */
+        .hero {
+            height: 85vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 5%;
+            margin-top: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--bg-base) 0%, rgba(10, 15, 12, 0.6) 50%, transparent 100%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(0deg, var(--bg-base) 0%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Section Headings */
+        .section-title {
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .package-features li::before {
-            content: "✓";
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Movie Grid */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .movie-card {
+            background: var(--bg-surface);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--border-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .movie-thumb {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .movie-card:hover .movie-thumb {
+            filter: brightness(0.8);
+        }
+
+        .movie-info {
+            padding: 15px;
+            background: linear-gradient(0deg, var(--bg-surface) 60%, transparent 100%);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .movie-card:hover .movie-info {
+            transform: translateY(0);
+        }
+
+        .movie-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta-card {
+            font-size: 0.85rem;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Detail View */
+        .detail-wrapper {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .detail-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px) brightness(0.3);
+            z-index: -1;
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+
+        .video-player {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .detail-meta-row {
+            display: flex;
+            gap: 20px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .detail-actions-row {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        /* Community Section */
+        .community-box {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comment-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Pricing Cards */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .price-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(30, 215, 96, 0.1);
+        }
+
+        .price-card.premium::before {
+            content: 'Paling Populer';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--primary);
+            color: #000;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin: 20px 0;
+        }
+
+        .price-amount span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .price-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li::before {
+            content: '✓';
             color: var(--primary);
             font-weight: bold;
         }
 
-        /* Polling */
-        .poll-container {
-            background: var(--bg-surface);
-            border-radius: 16px;
-            padding: 2rem;
+        /* Watch Party & Polling */
+        .card-center {
             max-width: 600px;
             margin: 0 auto;
-            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
         }
 
-        .poll-option {
-            margin-bottom: 1rem;
-            cursor: pointer;
+        .poll-item {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .poll-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .poll-bar-bg {
-            background: rgba(255,255,255,0.05);
-            height: 40px;
-            border-radius: 8px;
-            position: relative;
+            width: 100%;
+            height: 12px;
+            background: var(--bg-base);
+            border-radius: 6px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-            border: 1px solid transparent;
-            transition: border 0.2s;
-        }
-
-        .poll-option:hover .poll-bar-bg {
-            border-color: var(--border);
         }
 
         .poll-bar-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
             height: 100%;
-            background: rgba(0, 210, 106, 0.2);
-            z-index: 1;
-            transition: width 0.5s ease;
+            background: var(--primary);
+            width: 0%;
+            transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 6px;
         }
 
-        .poll-text {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        /* Forms */
+        /* Auth */
         .auth-container {
-            max-width: 400px;
-            margin: 4rem auto;
-            background: var(--bg-surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg-base);
-            color: var(--text-main);
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-        }
-
-        .error-msg {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        /* Admin Dashboard */
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-        }
-
-        .admin-sidebar {
-            background: var(--bg-surface);
-            border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .admin-nav-item {
-            display: block;
-            padding: 0.8rem 1rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-        }
-
-        .admin-nav-item:hover, .admin-nav-item.active {
-            background: rgba(0, 210, 106, 0.1);
-            color: var(--primary);
-        }
-
-        .admin-panel {
-            background: var(--bg-surface);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-        }
-
-        table {
+        /* Admin Table */
+        .admin-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--bg-surface);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        th, td {
-            padding: 1rem;
+        .admin-table th,
+        .admin-table td {
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        th {
-            color: var(--text-muted);
+        .admin-table th {
+            background: rgba(30, 215, 96, 0.1);
+            color: var(--primary);
             font-weight: 600;
         }
 
-        .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            background: rgba(255,255,255,0.1);
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
         }
 
-        .badge.admin {
-            background: rgba(0, 210, 106, 0.2);
-            color: var(--primary);
+        /* Utilities */
+        .hidden {
+            display: none !important;
         }
 
-        /* Modal / Watch Party Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .modal-content {
-            background: var(--bg-surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
 
-        .room-code {
-            font-size: 3rem;
-            letter-spacing: 5px;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1.5rem 0;
-            background: var(--bg-base);
-            padding: 1rem;
-            border-radius: 8px;
-        }
+            nav ul {
+                width: 100%;
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
 
+            .nav-actions {
+                margin-top: 15px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .detail-actions-row {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <nav>
-        <div class="logo" onclick="navigate('home')">Stream<span>Sync</span></div>
-        <div class="nav-links">
-            <a onclick="navigate('home')" id="nav-home">Home</a>
-            <a onclick="navigate('search')" id="nav-search">Cari</a>
-            <a onclick="navigate('package')" id="nav-package">Paket</a>
-            <a onclick="navigate('polling')" id="nav-polling">Polling</a>
-            <a onclick="navigate('admin')" id="nav-admin" style="display:none;">Admin Dashboard</a>
-        </div>
-        <div class="nav-actions" id="auth-section">
-            <!-- Injected by JS -->
-        </div>
-    </nav>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo" onclick="switchView('view-home')">StreamSync</div>
+            <ul>
+                <li><a href="#" class="nav-link" data-target="view-home" onclick="switchView('view-home')">Home</a></li>
+                <li><a href="#" class="nav-link" data-target="view-search" onclick="switchView('view-search')">Cari</a>
+                </li>
+                <li><a href="#" class="nav-link" data-target="view-watchparty"
+                        onclick="switchView('view-watchparty')">Watch Party</a></li>
+                <li><a href="#" class="nav-link" data-target="view-packages"
+                        onclick="switchView('view-packages')">Paket</a></li>
+                <li><a href="#" class="nav-link" data-target="view-polling"
+                        onclick="switchView('view-polling')">Polling</a></li>
+            </ul>
+            <div class="nav-actions">
+                <span id="nav-user-info" class="hidden"></span>
+                <button id="nav-btn-admin" class="btn btn-outline hidden" style="padding: 8px 16px; font-size: 0.9rem;"
+                    onclick="switchView('view-admin')">Admin Area</button>
+                <button id="nav-btn-login" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;"
+                    onclick="switchView('view-auth')">Login</button>
+                <button id="nav-btn-logout" class="btn btn-outline hidden" style="padding: 8px 16px; font-size: 0.9rem;"
+                    onclick="logout()">Logout</button>
+            </div>
+        </nav>
+    </header>
 
     <main>
-        <!-- Home Page -->
-        <section id="home" class="page">
-            <div class="hero">
+        <!-- ==============================================
+             HOME VIEW
+             ============================================== -->
+        <section id="view-home" class="view-section">
+            <div id="hero-banner" class="hero">
                 <div class="hero-content">
-                    <h1>Streaming Tanpa Batas, Kapanpun.</h1>
-                    <p>Nikmati film eksklusif, rekomendasi AI pintar, dan nonton bareng teman (Watch Party) dalam satu platform.</p>
-                    <button class="btn" style="font-size: 1.1rem; padding: 0.8rem 2rem;" onclick="navigate('search')">Mulai Menonton</button>
+                    <div class="hero-meta">
+                        <span id="hero-year">2023</span> • <span id="hero-genre">Action</span> • <span
+                            style="color:#fff;">⭐ <span id="hero-rating">9.0</span></span>
+                    </div>
+                    <h1 id="hero-title">Movie Title</h1>
+                    <p id="hero-desc">Movie description goes here...</p>
+                    <div style="display:flex; gap:15px;">
+                        <button class="btn btn-primary" id="hero-play-btn">▶ Mulai Nonton</button>
+                        <button class="btn btn-outline" onclick="switchView('view-packages')">Berlangganan</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="section-header">
-                <div class="section-title">AI Rekomendasi Pintar</div>
-                <select class="input-field" style="width: 200px; padding: 0.5rem;" id="ai-genre-filter" onchange="renderAiRecommendations()">
-                    <option value="all">Semua Genre</option>
-                    <option value="Sci-Fi">Sci-Fi</option>
-                    <option value="Action">Action</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Animation">Animation</option>
-                </select>
-            </div>
-            <div class="movie-grid" id="ai-movies-grid">
-                <!-- Injected via JS -->
-            </div>
+            <div class="container">
+                <h2 class="section-title">✨ AI Rekomendasi Untuk Anda <span id="ai-genre-label"
+                        style="font-size:1rem; color:var(--text-muted); font-weight:normal; margin-left:10px;"></span>
+                </h2>
+                <div class="movie-grid" id="grid-ai"></div>
 
-            <div class="section-header" style="margin-top: 2rem;">
-                <div class="section-title">Film & Series Populer</div>
-            </div>
-            <div class="movie-grid" id="home-movies-grid">
-                <!-- Injected via JS -->
+                <h2 class="section-title">🔥 Trending Now</h2>
+                <div class="movie-grid" id="grid-trending"></div>
             </div>
         </section>
 
-        <!-- Search Page -->
-        <section id="search" class="page">
-            <div class="search-bar-container">
-                <input type="text" id="search-input" class="input-field" placeholder="Cari judul film, series, atau genre..." onkeyup="handleSearch()">
-                <button class="btn" onclick="handleSearch()">Cari Konten</button>
-            </div>
-            
-            <div class="section-header">
-                <div class="section-title">Hasil Pencarian</div>
-            </div>
-            <div class="movie-grid" id="search-movies-grid">
-                <!-- Injected via JS -->
+        <!-- ==============================================
+             SEARCH VIEW
+             ============================================== -->
+        <section id="view-search" class="view-section hidden">
+            <div class="container" style="padding-top: 120px; min-height: 80vh;">
+                <h2 class="section-title">Cari Konten</h2>
+                <div style="display:flex; gap:15px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <input type="text" id="search-input" placeholder="Ketik judul film atau series..."
+                        oninput="doSearch()" style="flex: 2; min-width: 250px;">
+                    <select id="search-genre" onchange="doSearch()" style="flex: 1; min-width: 150px;">
+                        <option value="">Semua Genre</option>
+                        <option value="Action">Action</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Fantasy">Fantasy</option>
+                    </select>
+                </div>
+                <div class="movie-grid" id="grid-search-results"></div>
+                <div id="search-empty" class="hidden"
+                    style="text-align:center; padding: 50px; color: var(--text-muted);">
+                    <h3>Pencarian tidak ditemukan</h3>
+                </div>
             </div>
         </section>
 
-        <!-- Watch Page -->
-        <section id="watch" class="page">
-            <div class="watch-container">
-                <button class="btn btn-outline" style="align-self: flex-start;" onclick="navigate('home')">← Kembali</button>
-                
-                <div class="video-player-wrapper">
-                    <!-- Placeholder YouTube Embed -->
-                    <iframe id="video-embed" src="" allowfullscreen></iframe>
+        <!-- ==============================================
+             DETAIL VIEW
+             ============================================== -->
+        <section id="view-detail" class="view-section hidden">
+            <div id="detail-bg" class="detail-bg"></div>
+            <div class="container detail-wrapper">
+
+                <div class="video-player">
+                    <!-- YouTube Embed Placeholder -->
+                    <iframe id="detail-video" src="" allowfullscreen></iframe>
                 </div>
 
-                <div class="movie-details-bar">
-                    <div>
-                        <h1 class="movie-title-large" id="watch-title">Title</h1>
-                        <div style="color: var(--text-muted); margin-bottom: 1rem;">
-                            <span id="watch-year">2023</span> • <span id="watch-genre">Action</span> • ⭐ <span id="watch-rating">8.5</span>
+                <h1 id="detail-title" style="font-size: 3rem; margin-bottom: 10px;">Title</h1>
+                <div class="detail-meta-row">
+                    <span id="detail-year-meta">2023</span> |
+                    <span id="detail-genre-meta" style="color:var(--primary);">Action</span> |
+                    <span>⭐ <span id="detail-rating-meta">8.5</span></span>
+                </div>
+
+                <p id="detail-desc"
+                    style="font-size: 1.1rem; max-width: 800px; color: var(--text-muted); line-height: 1.8;"></p>
+
+                <div class="detail-actions-row">
+                    <button class="btn btn-primary" onclick="alert('Memulai pemutaran video...')">▶ Play</button>
+                    <button class="btn btn-outline" onclick="goToWatchParty()">👥 Mulai Watch Party</button>
+                    <button class="btn btn-outline" onclick="downloadOffline()">⬇ Download Offline</button>
+                </div>
+
+                <!-- Komunitas Lokal (Comments) -->
+                <div class="community-box">
+                    <h3 style="margin-bottom: 20px; display:flex; align-items:center; gap:10px;">
+                        💬 Komunitas Lokal
+                    </h3>
+
+                    <form id="comment-form" onsubmit="addComment(event)"
+                        style="display:flex; gap:15px; margin-bottom: 30px;">
+                        <input type="text" id="comment-input" placeholder="Bagikan pendapatmu tentang film ini..."
+                            required style="margin:0;">
+                        <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Kirim</button>
+                    </form>
+
+                    <div id="comments-list">
+                        <!-- Comments will be injected here -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==============================================
+             WATCH PARTY VIEW
+             ============================================== -->
+        <section id="view-watchparty" class="view-section hidden">
+            <div class="container" style="padding-top: 150px; min-height: 80vh;">
+                <div class="card-center">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 10px;">🎉 Watch Party Real-Time</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 40px;">Nonton bareng film favorit secara sinkron
+                        dengan teman-teman dari mana saja.</p>
+
+                    <button class="btn btn-primary" style="width: 100%; font-size: 1.2rem; padding: 15px;"
+                        onclick="createRoom()">➕ Buat Room Baru</button>
+
+                    <div style="display:flex; align-items:center; margin: 30px 0; color: var(--text-muted);">
+                        <hr style="flex:1; border-color:var(--border-color);"><span style="padding:0 15px;">ATAU</span>
+                        <hr style="flex:1; border-color:var(--border-color);">
+                    </div>
+
+                    <form onsubmit="joinRoom(event)">
+                        <input type="text" id="room-code-input" placeholder="Masukkan Kode Room (Contoh: WP-1234)"
+                            required style="text-align:center; font-size:1.2rem; letter-spacing: 2px;">
+                        <button type="submit" class="btn btn-outline" style="width: 100%; margin-top: 15px;">Gabung
+                            Room</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             PACKAGES VIEW
+             ============================================== -->
+        <section id="view-packages" class="view-section hidden">
+            <div class="container" style="padding-top: 120px; min-height: 80vh;">
+                <div style="text-align:center; max-width: 600px; margin: 0 auto;">
+                    <h2 class="section-title" style="justify-content:center;">Pilih Paket Hemat Mingguan</h2>
+                    <p style="color:var(--text-muted);">Nikmati pengalaman streaming tanpa batas sesuai kebutuhanmu.</p>
+                </div>
+
+                <div class="pricing-container">
+                    <div class="price-card">
+                        <h3>Gratis</h3>
+                        <div class="price-amount">Rp 0<span>/mgg</span></div>
+                        <ul class="price-features">
+                            <li>Akses konten terbatas</li>
+                            <li>Terdapat Iklan</li>
+                            <li>Resolusi 480p</li>
+                            <li>Akses Komunitas</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%" onclick="buyPackage('Gratis')">Pilih
+                            Paket</button>
+                    </div>
+
+                    <div class="price-card premium">
+                        <h3>Premium</h3>
+                        <div class="price-amount" style="color:var(--primary);">Rp 50K<span>/mgg</span></div>
+                        <ul class="price-features">
+                            <li>Akses semua konten eksklusif</li>
+                            <li>Tanpa Iklan</li>
+                            <li>Resolusi 4K HDR</li>
+                            <li>Watch Party Tak Terbatas</li>
+                            <li>Download Offline</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width:100%" onclick="buyPackage('Premium')">Pilih
+                            Paket</button>
+                    </div>
+
+                    <div class="price-card">
+                        <h3>Basic</h3>
+                        <div class="price-amount">Rp 25K<span>/mgg</span></div>
+                        <ul class="price-features">
+                            <li>Akses semua konten</li>
+                            <li>Tanpa Iklan</li>
+                            <li>Resolusi 1080p</li>
+                            <li>Download Terbatas</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%" onclick="buyPackage('Basic')">Pilih
+                            Paket</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             POLLING VIEW
+             ============================================== -->
+        <section id="view-polling" class="view-section hidden">
+            <div class="container" style="padding-top: 120px; min-height: 80vh;">
+                <div class="card-center" style="max-width: 800px;">
+                    <h2>📊 Polling Film dari Pengguna</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 30px;">Bantu kami menentukan film atau series apa
+                        yang harus ditambahkan minggu depan!</p>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; text-align:left;">
+                        <!-- Form Voting -->
+                        <div>
+                            <h3 style="margin-bottom:20px; font-size:1.2rem;">Beri Suaramu</h3>
+                            <form id="poll-form" onsubmit="submitPoll(event)">
+                                <div id="poll-options"
+                                    style="display:flex; flex-direction:column; gap:15px; margin-bottom: 20px;">
+                                    <!-- Options injected by JS -->
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width:100%;">Vote Sekarang</button>
+                            </form>
                         </div>
-                        <p id="watch-desc" style="max-width: 800px; line-height: 1.6;">Description</p>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn" onclick="startWatchParty()">🎉 Mulai Watch Party</button>
-                        <button class="btn btn-outline" onclick="downloadOffline()">⬇ Download Offline</button>
-                    </div>
-                </div>
 
-                <!-- Komunitas Section -->
-                <div class="community-section">
-                    <div class="section-title">Komunitas Lokal (Diskusi Film)</div>
-                    <div class="comment-list" id="comment-list">
-                        <!-- Comments injected here -->
-                    </div>
-                    <div class="comment-form">
-                        <input type="text" id="comment-input" class="input-field" placeholder="Tulis pendapatmu tentang film ini...">
-                        <button class="btn" onclick="addComment()">Kirim</button>
+                        <!-- Results -->
+                        <div>
+                            <h3 style="margin-bottom:20px; font-size:1.2rem;">Hasil Sementara</h3>
+                            <div id="poll-results-container">
+                                <!-- Results injected by JS -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Packages Page -->
-        <section id="package" class="page">
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h1>Pilih Paket Hemat Mingguan</h1>
-                <p style="color: var(--text-muted);">Fleksibel, tanpa komitmen panjang. Batal kapan saja.</p>
-            </div>
-            
-            <div class="packages-grid">
-                <div class="package-card">
-                    <h3>Gratis</h3>
-                    <div class="package-price">Rp 0<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
-                    <ul class="package-features">
-                        <li>Akses konten terbatas</li>
-                        <li>Kualitas SD (480p)</li>
-                        <li>Ada Iklan</li>
-                    </ul>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="buyPackage('Gratis')">Pilih Paket</button>
+        <!-- ==============================================
+             AUTH VIEW
+             ============================================== -->
+        <section id="view-auth" class="view-section hidden">
+            <div class="container auth-container">
+
+                <!-- Login Box -->
+                <div id="box-login" class="card-center" style="width: 100%; max-width: 400px; padding: 40px;">
+                    <h2 style="margin-bottom: 20px;">Masuk</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <input type="email" id="login-email" placeholder="Alamat Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary"
+                            style="width:100%; margin-top: 20px;">Login</button>
+                    </form>
+                    <p style="margin-top: 20px; color: var(--text-muted);">
+                        Belum punya akun? <a href="#" onclick="toggleAuthMode()">Daftar sekarang</a>
+                    </p>
                 </div>
 
-                <div class="package-card popular">
-                    <div class="popular-badge">PALING LAKU</div>
-                    <h3>Basic</h3>
-                    <div class="package-price">Rp 15.000<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
-                    <ul class="package-features">
-                        <li>Akses semua film & series</li>
-                        <li>Kualitas HD (1080p)</li>
-                        <li>Tanpa Iklan</li>
-                        <li>Fitur Download Offline</li>
-                    </ul>
-                    <button class="btn" style="width: 100%;" onclick="buyPackage('Basic')">Pilih Paket</button>
+                <!-- Register Box -->
+                <div id="box-register" class="card-center hidden" style="width: 100%; max-width: 450px; padding: 40px;">
+                    <h2 style="margin-bottom: 20px;">Buat Akun</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <input type="text" id="reg-name" placeholder="Nama Lengkap" required>
+                        <input type="email" id="reg-email" placeholder="Alamat Email" required>
+                        <input type="password" id="reg-password" placeholder="Password" required>
+                        <label
+                            style="display:block; text-align:left; margin-top:10px; color:var(--text-muted); font-size:0.9rem;">Pilih
+                            Genre Favoritmu (Untuk AI Rekomendasi):</label>
+                        <select id="reg-genre" required>
+                            <option value="">-- Pilih Genre --</option>
+                            <option value="Action">Action</option>
+                            <option value="Sci-Fi">Sci-Fi</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Fantasy">Fantasy</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary"
+                            style="width:100%; margin-top: 20px;">Daftar</button>
+                    </form>
+                    <p style="margin-top: 20px; color: var(--text-muted);">
+                        Sudah punya akun? <a href="#" onclick="toggleAuthMode()">Login di sini</a>
+                    </p>
                 </div>
 
-                <div class="package-card">
-                    <h3>Premium (Keluarga)</h3>
-                    <div class="package-price">Rp 35.000<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
-                    <ul class="package-features">
-                        <li>Semua fitur Basic</li>
-                        <li>Kualitas 4K HDR</li>
-                        <li>Bisa ditonton di 4 layar</li>
-                        <li>Akses Watch Party VIP</li>
-                    </ul>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="buyPackage('Premium')">Pilih Paket</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Polling Page -->
-        <section id="polling" class="page">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h1>Polling Film Pilihan Pengguna</h1>
-                <p style="color: var(--text-muted);">Bantu kami menentukan film apa yang harus kami tambahkan minggu depan!</p>
-            </div>
-            
-            <div class="poll-container" id="poll-container">
-                <!-- Polling options injected via JS -->
             </div>
         </section>
 
-        <!-- Auth Page (Login/Register) -->
-        <section id="auth" class="page">
-            <div class="auth-container" id="login-form-container">
-                <h2>Masuk ke Akun</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Lanjutkan pengalaman streaming Anda</p>
-                
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="nama@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="••••••••">
-                    <div id="login-error" class="error-msg">Email atau password salah.</div>
-                </div>
-                
-                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="handleLogin()">Login</button>
-                
-                <p style="margin-top: 1.5rem; font-size: 0.9rem;">
-                    Belum punya akun? <a href="#" style="color: var(--primary);" onclick="toggleAuth('register')">Daftar sekarang</a>
-                </p>
-            </div>
+        <!-- ==============================================
+             ADMIN VIEW
+             ============================================== -->
+        <section id="view-admin" class="view-section hidden">
+            <div class="container" style="padding-top: 120px; min-height: 80vh;">
+                <h2 class="section-title">🛡️ Admin Dashboard</h2>
 
-            <div class="auth-container" id="register-form-container" style="display: none;">
-                <h2>Daftar Akun Baru</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Bergabung dengan komunitas StreamSync</p>
-                
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" id="reg-name" class="form-control" placeholder="John Doe">
+                <div class="admin-tabs">
+                    <button class="btn btn-primary admin-tab-btn" onclick="switchAdminTab('admin-movies')">Kelola
+                        Konten</button>
+                    <button class="btn btn-outline admin-tab-btn" onclick="switchAdminTab('admin-users')">Kelola
+                        Pengguna</button>
+                    <button class="btn btn-outline admin-tab-btn" onclick="switchAdminTab('admin-ai')">Konfigurasi
+                        AI</button>
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="reg-email" class="form-control" placeholder="nama@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="reg-password" class="form-control" placeholder="Minimal 6 karakter">
-                    <div id="reg-error" class="error-msg">Mohon isi semua field dengan benar.</div>
-                </div>
-                
-                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="handleRegister()">Daftar</button>
-                
-                <p style="margin-top: 1.5rem; font-size: 0.9rem;">
-                    Sudah punya akun? <a href="#" style="color: var(--primary);" onclick="toggleAuth('login')">Login di sini</a>
-                </p>
-            </div>
-        </section>
 
-        <!-- Admin Dashboard -->
-        <section id="admin" class="page">
-            <h1 style="margin-bottom: 2rem;">Admin Dashboard</h1>
-            
-            <div class="admin-grid">
-                <div class="admin-sidebar">
-                    <a class="admin-nav-item active" onclick="switchAdminTab('users')">Kelola Pengguna</a>
-                    <a class="admin-nav-item" onclick="switchAdminTab('movies')">Kelola Konten Film</a>
-                    <a class="admin-nav-item" onclick="switchAdminTab('polls')">Kelola Polling</a>
+                <!-- Kelola Konten -->
+                <div id="admin-movies" class="admin-content">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <h3>Daftar Film & Series</h3>
+                        <button class="btn btn-outline" style="padding: 5px 15px;" onclick="resetDummyMovies()">Reset
+                            Dummy Data</button>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Thumbnail</th>
+                                <th>Judul</th>
+                                <th>Genre</th>
+                                <th>Rating</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-movies-tbody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
                 </div>
-                
-                <div class="admin-panel" id="admin-panel-content">
-                    <!-- Injected via JS -->
+
+                <!-- Kelola Pengguna -->
+                <div id="admin-users" class="admin-content hidden">
+                    <h3>Daftar Pengguna</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Genre Favorit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-tbody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
                 </div>
+
+                <!-- Konfigurasi AI -->
+                <div id="admin-ai" class="admin-content hidden">
+                    <div class="card-center" style="margin:0; text-align:left;">
+                        <h3>Konfigurasi Algoritma AI</h3>
+                        <p style="color:var(--text-muted); margin-bottom:20px;">Pilih dasar algoritma rekomendasi untuk
+                            pengguna di halaman beranda.</p>
+
+                        <div style="margin-bottom:15px;">
+                            <input type="radio" id="ai-mode-genre" name="ai-mode" value="genre"
+                                style="width:auto; margin-right:10px;">
+                            <label for="ai-mode-genre">Berdasarkan Genre Favorit Pengguna</label>
+                        </div>
+                        <div style="margin-bottom:30px;">
+                            <input type="radio" id="ai-mode-rating" name="ai-mode" value="rating"
+                                style="width:auto; margin-right:10px;">
+                            <label for="ai-mode-rating">Berdasarkan Rating Tertinggi (Trending Global)</label>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="saveAIConfig()">Simpan Konfigurasi</button>
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <!-- Watch Party Modal -->
-    <div class="modal-overlay" id="watch-party-modal">
-        <div class="modal-content">
-            <h2>🎉 Watch Party Dibuat!</h2>
-            <p style="margin-top: 1rem; color: var(--text-muted);">Bagikan kode ini ke teman-temanmu agar mereka bisa bergabung menonton bersama secara real-time.</p>
-            <div class="room-code" id="wp-room-code">A8F9X2</div>
-            <button class="btn" style="width: 100%;" onclick="closeModal()">Tutup & Mulai Nonton</button>
+    <!-- Footer -->
+    <footer
+        style="background: rgba(10,15,12,0.9); padding: 40px 0; border-top: 1px solid var(--border-color); margin-top: 50px;">
+        <div class="container" style="text-align:center; color: var(--text-muted);">
+            <div class="logo" style="font-size: 1.5rem; color: var(--primary); font-weight:900; margin-bottom: 10px;">
+                StreamSync</div>
+            <p>© 2026 StreamSync Platform. Dibuat menggunakan Vanilla HTML, CSS, JS.</p>
         </div>
-    </div>
+    </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
     <script>
-        // --- DATA INITIALIZATION ---
-        
-        // Dummy Movies
-        const defaultMovies = [
-            { id: 1, title: "Inception", genre: "Sci-Fi", desc: "Seorang pencuri yang merampas rahasia perusahaan melalui penggunaan teknologi berbagi mimpi.", year: 2010, rating: 8.8, thumb: "https://picsum.photos/seed/inc/300/450", videoId: "8hP9D6kZseM" },
-            { id: 2, title: "The Dark Knight", genre: "Action", desc: "Ketika ancaman yang dikenal sebagai Joker membuat kekacauan pada rakyat Gotham, Batman harus menerima salah satu tes psikologis dan fisik terbesarnya.", year: 2008, rating: 9.0, thumb: "https://picsum.photos/seed/tdk/300/450", videoId: "EXeTwQWrcwY" },
-            { id: 3, title: "Parasite", genre: "Drama", desc: "Keserakahan dan diskriminasi kelas mengancam hubungan simbiosis yang baru terbentuk antara keluarga Park yang kaya dan klan Kim yang miskin.", year: 2019, rating: 8.5, thumb: "https://picsum.photos/seed/par/300/450", videoId: "5xH0HfJHsaY" },
-            { id: 4, title: "Avengers: Endgame", genre: "Action", desc: "Setelah kejadian yang menghancurkan dari Infinity War, Avengers berkumpul sekali lagi untuk membatalkan tindakan Thanos.", year: 2019, rating: 8.4, thumb: "https://picsum.photos/seed/avg/300/450", videoId: "TcMBFSGVi1c" },
-            { id: 5, title: "Interstellar", genre: "Sci-Fi", desc: "Tim penjelajah melakukan perjalanan melalui lubang cacing di ruang angkasa dalam upaya memastikan kelangsungan hidup umat manusia.", year: 2014, rating: 8.6, thumb: "https://picsum.photos/seed/int/300/450", videoId: "zSWdZVtXT7E" },
-            { id: 6, title: "Toy Story 4", genre: "Animation", desc: "Saat mainan baru bernama Forky bergabung, perjalanan darat mengungkap seberapa besar dunia bagi sebuah mainan.", year: 2019, rating: 7.7, thumb: "https://picsum.photos/seed/toy/300/450", videoId: "wmiIUN-7qhE" },
-            { id: 7, title: "Joker", genre: "Drama", desc: "Di Gotham City, komedian Arthur Fleck yang bermasalah mental diabaikan dan dianiaya oleh masyarakat.", year: 2019, rating: 8.4, thumb: "https://picsum.photos/seed/jok/300/450", videoId: "zAGVQLHvwOY" },
-            { id: 8, title: "The Matrix", genre: "Sci-Fi", desc: "Seorang hacker komputer belajar dari pemberontak misterius tentang sifat sebenarnya dari realitasnya.", year: 1999, rating: 8.7, thumb: "https://picsum.photos/seed/mat/300/450", videoId: "vKQi3bBA1y8" },
-            { id: 9, title: "Gladiator", genre: "Action", desc: "Mantan Jenderal Romawi menuntut balas terhadap kaisar korup yang membunuh keluarganya dan mengirimnya ke perbudakan.", year: 2000, rating: 8.5, thumb: "https://picsum.photos/seed/gla/300/450", videoId: "owK1qxDselE" },
-            { id: 10, title: "Coco", genre: "Animation", desc: "Calon musisi Miguel, dihadapkan pada larangan musik leluhur keluarganya, memasuki Tanah Kematian.", year: 2017, rating: 8.4, thumb: "https://picsum.photos/seed/coc/300/450", videoId: "xlnPHQ3TLX8" },
-            { id: 11, title: "The Shawshank Redemption", genre: "Drama", desc: "Dua pria yang dipenjara menjalin ikatan selama bertahun-tahun, menemukan hiburan dan penebusan penebusan melalui tindakan kesopanan umum.", year: 1994, rating: 9.3, thumb: "https://picsum.photos/seed/shaw/300/450", videoId: "6hB3S9bIaco" },
-            { id: 12, title: "Spirited Away", genre: "Animation", desc: "Dalam perjalanan pindah keluarga ke pinggiran kota, seorang gadis berusia 10 tahun berkelana ke dunia yang diperintah oleh dewa, penyihir, dan roh.", year: 2001, rating: 8.6, thumb: "https://picsum.photos/seed/spi/300/450", videoId: "ByXuk9QqQkk" }
+        // --- 1. DUMMY DATA & STATE MANAGEMENT ---
+        const DB_KEY = 'streamsync_db';
+        let db = JSON.parse(localStorage.getItem(DB_KEY));
+
+        const dummyMovies = [
+            { id: 1, title: 'Inception', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/inc/300/450', desc: 'A thief who steals corporate secrets through the use of dream-sharing technology.', year: 2010, rating: 8.8, video: 'https://www.youtube.com/embed/YoHD9XEInc0' },
+            { id: 2, title: 'The Dark Knight', genre: 'Action', thumb: 'https://picsum.photos/seed/dk/300/450', desc: 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham.', year: 2008, rating: 9.0, video: 'https://www.youtube.com/embed/EXeTwQWrcwY' },
+            { id: 3, title: 'Interstellar', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/int/300/450', desc: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.', year: 2014, rating: 8.6, video: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
+            { id: 4, title: 'Stranger Things', genre: 'Horror', thumb: 'https://picsum.photos/seed/st/300/450', desc: 'When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces.', year: 2016, rating: 8.7, video: 'https://www.youtube.com/embed/b9EkMc79ZSU' },
+            { id: 5, title: 'Avengers: Endgame', genre: 'Action', thumb: 'https://picsum.photos/seed/avg/300/450', desc: 'After the devastating events of Infinity War, the universe is in ruins.', year: 2019, rating: 8.4, video: 'https://www.youtube.com/embed/TcMBFSGVi1c' },
+            { id: 6, title: 'The Matrix', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/mtx/300/450', desc: 'A computer hacker learns from mysterious rebels about the true nature of his reality.', year: 1999, rating: 8.7, video: 'https://www.youtube.com/embed/vKQi3bBA1y8' },
+            { id: 7, title: 'Parasite', genre: 'Thriller', thumb: 'https://picsum.photos/seed/par/300/450', desc: 'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.', year: 2019, rating: 8.5, video: 'https://www.youtube.com/embed/5xH0HfJHxYI' },
+            { id: 8, title: 'Joker', genre: 'Drama', thumb: 'https://picsum.photos/seed/jok/300/450', desc: 'In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society.', year: 2019, rating: 8.4, video: 'https://www.youtube.com/embed/zAGVQLHvwOY' },
+            { id: 9, title: 'Money Heist', genre: 'Action', thumb: 'https://picsum.photos/seed/mh/300/450', desc: 'An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history.', year: 2017, rating: 8.2, video: 'https://www.youtube.com/embed/hMANIarjT50' },
+            { id: 10, title: 'Breaking Bad', genre: 'Drama', thumb: 'https://picsum.photos/seed/bb/300/450', desc: 'A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine.', year: 2008, rating: 9.5, video: 'https://www.youtube.com/embed/HhesaQXLuRY' },
+            { id: 11, title: 'The Witcher', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/wit/300/450', desc: 'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.', year: 2019, rating: 8.1, video: 'https://www.youtube.com/embed/ndl1W4ltcmg' },
+            { id: 12, title: 'Spider-Man: No Way Home', genre: 'Action', thumb: 'https://picsum.photos/seed/sm/300/450', desc: 'With Spider-Man\'s identity now revealed, Peter asks Doctor Strange for help.', year: 2021, rating: 8.2, video: 'https://www.youtube.com/embed/JfVOs4VSpmA' }
         ];
 
-        // Dummy Polls
-        const defaultPolls = [
-            { id: 1, title: "Spider-Man: Across the Spider-Verse", votes: 125 },
-            { id: 2, title: "Oppenheimer", votes: 180 },
-            { id: 3, title: "Dune: Part Two", votes: 210 },
-            { id: 4, title: "John Wick: Chapter 4", votes: 95 }
-        ];
-
-        // Initialize Local Storage State
-        if (!localStorage.getItem('stream_movies')) {
-            localStorage.setItem('stream_movies', JSON.stringify(defaultMovies));
-        }
-        if (!localStorage.getItem('stream_polls')) {
-            localStorage.setItem('stream_polls', JSON.stringify(defaultPolls));
-        }
-        if (!localStorage.getItem('stream_users')) {
-            // Default admin user
-            const defaultUsers = [{ name: "Admin", email: "admin@streamsync.com", password: "admin", role: "admin" }];
-            localStorage.setItem('stream_users', JSON.stringify(defaultUsers));
-        }
-        if (!localStorage.getItem('stream_comments')) {
-            localStorage.setItem('stream_comments', JSON.stringify({})); // { movieId: [{user, text}] }
+        // Initial DB structure
+        if (!db) {
+            db = {
+                users: [
+                    { name: 'Admin', email: 'admin@streamsync.com', password: 'admin', role: 'admin', genre: 'Action' },
+                    { name: 'User Biasa', email: 'user@streamsync.com', password: 'user', role: 'user', genre: 'Sci-Fi' }
+                ],
+                currentUser: null,
+                movies: [...dummyMovies],
+                comments: {}, // Format: { movieId: [{name, text, date}] }
+                polls: { "Spider-Man 4": 25, "Squid Game S2": 40, "Attack on Titan": 15 },
+                aiMode: 'genre' // 'genre' or 'rating'
+            };
+            saveDb();
         }
 
-        // Global State variables
-        let currentUser = JSON.parse(localStorage.getItem('stream_currentUser')) || null;
-        let currentMovieId = null;
-
-        // --- APP LOGIC ---
-
-        function initApp() {
-            updateNavbar();
-            navigate('home');
+        function saveDb() {
+            localStorage.setItem(DB_KEY, JSON.stringify(db));
         }
 
-        // Navigation
-        function navigate(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            
-            // Show target page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Active state on nav if exists
-            const navItem = document.getElementById(`nav-${pageId}`);
-            if (navItem) navItem.classList.add('active');
+        // Global variables
+        let activeMovieId = null;
 
-            // Route specific logic
-            if (pageId === 'home') {
-                renderHomeMovies();
-                renderAiRecommendations();
-            } else if (pageId === 'search') {
-                renderSearchMovies();
-            } else if (pageId === 'polling') {
-                renderPolls();
-            } else if (pageId === 'admin') {
-                if (!currentUser || currentUser.role !== 'admin') {
-                    alert('Akses Ditolak. Halaman ini hanya untuk Admin.');
-                    navigate('home');
-                    return;
+        // --- 2. VIEW CONTROLLER ---
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === viewId) {
+                    link.classList.add('active');
                 }
-                switchAdminTab('users');
-            }
-            
-            // Scroll to top
-            window.scrollTo(0,0);
+            });
+
+            // Call specific render logic based on view
+            if (viewId === 'view-home') renderHome();
+            if (viewId === 'view-search') doSearch();
+            if (viewId === 'view-polling') renderPolling();
+            if (viewId === 'view-admin') renderAdmin();
         }
 
-        // --- RENDER FUNCTIONS ---
+        // --- 3. UI RENDERING & LOGIC ---
 
-        function renderMovieCard(movie) {
+        // Generate Movie Card HTML
+        function createMovieCard(movie) {
             return `
-                <div class="movie-card" onclick="openWatchPage(${movie.id})">
-                    <img src="${movie.thumb}" alt="${movie.title}" class="movie-img" loading="lazy">
+                <div class="movie-card" onclick="goToDetail(${movie.id})">
+                    <div class="rating-badge">⭐ ${movie.rating}</div>
+                    <img src="${movie.thumb}" alt="${movie.title}" class="movie-thumb" loading="lazy">
                     <div class="movie-info">
-                        <div class="movie-title">${movie.title}</div>
-                        <div class="movie-meta">
-                            <span>${movie.year} • ${movie.genre}</span>
-                            <span class="movie-rating">⭐ ${movie.rating}</span>
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-meta-card">
+                            <span>${movie.year}</span>
+                            <span>${movie.genre}</span>
                         </div>
                     </div>
                 </div>
             `;
         }
 
-        function renderHomeMovies() {
-            const movies = JSON.parse(localStorage.getItem('stream_movies'));
-            const container = document.getElementById('home-movies-grid');
-            // Show top 8 movies on home
-            container.innerHTML = movies.slice(0, 8).map(renderMovieCard).join('');
-        }
+        // Home View
+        function renderHome() {
+            const movies = db.movies;
+            if (movies.length === 0) return;
 
-        function renderAiRecommendations() {
-            const genre = document.getElementById('ai-genre-filter').value;
-            const movies = JSON.parse(localStorage.getItem('stream_movies'));
-            const container = document.getElementById('ai-movies-grid');
-            
-            let filtered = movies;
-            if (genre !== 'all') {
-                filtered = movies.filter(m => m.genre === genre);
-            }
-            
-            // AI logic simulation: randomize order slightly for "discovery"
-            filtered = filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
-            
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1;">Belum ada rekomendasi untuk genre ini.</p>`;
+            // Random Hero Movie
+            const heroMovie = movies[Math.floor(Math.random() * movies.length)];
+            document.getElementById('hero-banner').style.backgroundImage = `url(${heroMovie.thumb.replace('300/450', '1200/600')})`;
+            document.getElementById('hero-title').innerText = heroMovie.title;
+            document.getElementById('hero-desc').innerText = heroMovie.desc;
+            document.getElementById('hero-year').innerText = heroMovie.year;
+            document.getElementById('hero-genre').innerText = heroMovie.genre;
+            document.getElementById('hero-rating').innerText = heroMovie.rating;
+            document.getElementById('hero-play-btn').onclick = () => goToDetail(heroMovie.id);
+
+            // Trending (Sort by rating)
+            const trending = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
+            document.getElementById('grid-trending').innerHTML = trending.map(createMovieCard).join('');
+
+            // AI Recommendation
+            let aiMovies = [];
+            const userGenre = db.currentUser ? db.currentUser.genre : 'Action';
+
+            if (db.aiMode === 'genre') {
+                document.getElementById('ai-genre-label').innerText = `(Berdasarkan genre favoritmu: ${userGenre})`;
+                aiMovies = movies.filter(m => m.genre === userGenre);
+                // Fallback if not enough movies
+                if (aiMovies.length < 4) {
+                    aiMovies = [...aiMovies, ...movies.filter(m => m.genre !== userGenre)].slice(0, 6);
+                }
             } else {
-                container.innerHTML = filtered.map(renderMovieCard).join('');
+                document.getElementById('ai-genre-label').innerText = `(Berdasarkan Rating Tertinggi Global)`;
+                aiMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
             }
+            document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 6).map(createMovieCard).join('');
         }
 
-        function handleSearch() {
+        // Search View
+        function doSearch() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            renderSearchMovies(query);
-        }
+            const genre = document.getElementById('search-genre').value;
 
-        function renderSearchMovies(query = '') {
-            const movies = JSON.parse(localStorage.getItem('stream_movies'));
-            const container = document.getElementById('search-movies-grid');
-            
-            const filtered = movies.filter(m => 
-                m.title.toLowerCase().includes(query) || 
-                m.genre.toLowerCase().includes(query)
-            );
+            let filtered = db.movies.filter(m => {
+                const matchQuery = m.title.toLowerCase().includes(query) || m.desc.toLowerCase().includes(query);
+                const matchGenre = genre === "" || m.genre === genre;
+                return matchQuery && matchGenre;
+            });
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center; padding: 2rem;">Tidak ada konten yang sesuai dengan pencarian.</p>`;
+            const grid = document.getElementById('grid-search-results');
+            const emptyState = document.getElementById('search-empty');
+
+            if (filtered.length > 0) {
+                grid.innerHTML = filtered.map(createMovieCard).join('');
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
             } else {
-                container.innerHTML = filtered.map(renderMovieCard).join('');
+                grid.innerHTML = '';
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
             }
         }
 
-        function openWatchPage(movieId) {
-            if (!currentUser) {
-                alert('Anda harus login terlebih dahulu untuk menonton konten.');
-                navigate('auth');
-                return;
-            }
-
-            const movies = JSON.parse(localStorage.getItem('stream_movies'));
-            const movie = movies.find(m => m.id === movieId);
+        // Detail View
+        function goToDetail(id) {
+            activeMovieId = id;
+            const movie = db.movies.find(m => m.id === id);
             if (!movie) return;
 
-            currentMovieId = movieId;
-            
-            document.getElementById('watch-title').innerText = movie.title;
-            document.getElementById('watch-year').innerText = movie.year;
-            document.getElementById('watch-genre').innerText = movie.genre;
-            document.getElementById('watch-rating').innerText = movie.rating;
-            document.getElementById('watch-desc').innerText = movie.desc;
-            
-            // Placeholder video using youtube embed
-            document.getElementById('video-embed').src = `https://www.youtube.com/embed/${movie.videoId}?autoplay=1&mute=1`;
+            document.getElementById('detail-bg').style.backgroundImage = `url(${movie.thumb.replace('300/450', '1200/600')})`;
+            document.getElementById('detail-title').innerText = movie.title;
+            document.getElementById('detail-year-meta').innerText = movie.year;
+            document.getElementById('detail-genre-meta').innerText = movie.genre;
+            document.getElementById('detail-rating-meta').innerText = movie.rating;
+            document.getElementById('detail-desc').innerText = movie.desc;
+
+            // Set Youtube Video (fallback if none)
+            const iframe = document.getElementById('detail-video');
+            iframe.src = movie.video ? movie.video : "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
             renderComments();
-            navigate('watch');
+            switchView('view-detail');
         }
 
-        // --- FEATURES ---
-
-        function startWatchParty() {
-            const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-            document.getElementById('wp-room-code').innerText = code;
-            document.getElementById('watch-party-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('watch-party-modal').style.display = 'none';
-        }
-
-        function downloadOffline() {
-            alert('Fitur Download Offline disimulasikan. Memulai pengunduhan konten...');
-        }
-
-        function buyPackage(pkgName) {
-            if (!currentUser) {
-                alert('Silakan login untuk berlangganan.');
-                navigate('auth');
-                return;
-            }
-            alert(`Terima kasih! Anda telah memilih paket berlangganan: ${pkgName}. Proses pembayaran disimulasikan selesai.`);
-        }
-
-        // --- COMMUNITY / COMMENTS ---
-
+        // Komunitas Lokal (Comments)
         function renderComments() {
-            const commentsData = JSON.parse(localStorage.getItem('stream_comments'));
-            const container = document.getElementById('comment-list');
-            const movieComments = commentsData[currentMovieId] || [];
+            const list = document.getElementById('comments-list');
+            const comments = db.comments[activeMovieId] || [];
 
-            if (movieComments.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Belum ada komentar. Jadilah yang pertama!</p>`;
+            if (comments.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted); font-style:italic;">Belum ada komentar. Jadilah yang pertama!</p>';
                 return;
             }
 
-            container.innerHTML = movieComments.map(c => `
+            list.innerHTML = comments.map(c => `
                 <div class="comment-item">
-                    <div class="comment-author">${c.user}</div>
-                    <div>${c.text}</div>
+                    <div class="comment-header">
+                        <div class="comment-avatar">${c.name.charAt(0).toUpperCase()}</div>
+                        <strong style="color: var(--primary);">${c.name}</strong>
+                        <span style="font-size:0.8rem; color:var(--text-muted); margin-left:10px;">${c.date}</span>
+                    </div>
+                    <p style="padding-left: 40px; color: #ddd;">${c.text}</p>
                 </div>
             `).join('');
         }
 
-        function addComment() {
+        function addComment(e) {
+            e.preventDefault();
+            if (!db.currentUser) {
+                alert("Harap login terlebih dahulu untuk berkomentar.");
+                switchView('view-auth');
+                return;
+            }
+
             const input = document.getElementById('comment-input');
             const text = input.value.trim();
             if (!text) return;
 
-            const commentsData = JSON.parse(localStorage.getItem('stream_comments'));
-            if (!commentsData[currentMovieId]) commentsData[currentMovieId] = [];
-            
-            commentsData[currentMovieId].push({
-                user: currentUser.name,
-                text: text
+            if (!db.comments[activeMovieId]) db.comments[activeMovieId] = [];
+
+            db.comments[activeMovieId].push({
+                name: db.currentUser.name,
+                text: text,
+                date: new Date().toLocaleDateString('id-ID')
             });
 
-            localStorage.setItem('stream_comments', JSON.stringify(commentsData));
+            saveDb();
             input.value = '';
             renderComments();
         }
 
-        // --- POLLING ---
+        // Actions Features
+        function downloadOffline() {
+            if (!db.currentUser) return alert("Login untuk mengunduh film!");
+            alert("Memulai simulasi download... Film akan tersedia di menu Offline Anda.");
+        }
 
-        function renderPolls() {
-            const polls = JSON.parse(localStorage.getItem('stream_polls'));
-            const container = document.getElementById('poll-container');
-            const totalVotes = polls.reduce((sum, p) => sum + p.votes, 0);
+        function goToWatchParty() {
+            switchView('view-watchparty');
+        }
 
-            container.innerHTML = polls.map(p => {
-                const percentage = totalVotes === 0 ? 0 : Math.round((p.votes / totalVotes) * 100);
+        function createRoom() {
+            if (!db.currentUser) return alert("Login untuk membuat Watch Party!");
+            const code = 'WP-' + Math.floor(1000 + Math.random() * 9000);
+            alert(`Room berhasil dibuat! Bagikan kode ini ke temanmu: ${code}\n(Simulasi Watch Party Dimulai)`);
+        }
+
+        function joinRoom(e) {
+            e.preventDefault();
+            if (!db.currentUser) return alert("Login untuk bergabung Watch Party!");
+            const code = document.getElementById('room-code-input').value;
+            if (!code) return;
+            alert(`Berhasil bergabung dengan room: ${code}\nMenyinkronkan pemutaran video...`);
+        }
+
+        function buyPackage(pkgName) {
+            if (!db.currentUser) return alert("Silakan login untuk membeli paket.");
+            alert(`Anda telah berhasil berlangganan paket ${pkgName}!\nTagihan akan dikirimkan ke email Anda.`);
+        }
+
+        // Polling Feature
+        function renderPolling() {
+            const optionsDiv = document.getElementById('poll-options');
+            const resultsDiv = document.getElementById('poll-results-container');
+
+            const polls = db.polls;
+            const totalVotes = Object.values(polls).reduce((a, b) => a + b, 0);
+
+            // Render Form
+            optionsDiv.innerHTML = Object.keys(polls).map(film => `
+                <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:var(--bg-surface); padding:10px; border-radius:6px; border:1px solid var(--border-color);">
+                    <input type="radio" name="poll-film" value="${film}" required>
+                    ${film}
+                </label>
+            `).join('');
+
+            // Render Results (Bars)
+            resultsDiv.innerHTML = Object.keys(polls).map(film => {
+                const votes = polls[film];
+                const pct = totalVotes === 0 ? 0 : Math.round((votes / totalVotes) * 100);
                 return `
-                    <div class="poll-option" onclick="votePoll(${p.id})">
+                    <div class="poll-item">
+                        <div class="poll-header">
+                            <span>${film}</span>
+                            <span style="color:var(--primary); font-weight:bold;">${pct}% (${votes} vote)</span>
+                        </div>
                         <div class="poll-bar-bg">
-                            <div class="poll-bar-fill" style="width: ${percentage}%"></div>
-                            <div class="poll-text">
-                                <span>${p.title}</span>
-                                <span>${percentage}% (${p.votes})</span>
-                            </div>
+                            <div class="poll-bar-fill" style="width: ${pct}%"></div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function votePoll(pollId) {
-            if (!currentUser) {
-                alert('Silakan login untuk mengikuti polling.');
-                navigate('auth');
-                return;
-            }
-            const polls = JSON.parse(localStorage.getItem('stream_polls'));
-            const poll = polls.find(p => p.id === pollId);
-            if (poll) {
-                poll.votes += 1;
-                localStorage.setItem('stream_polls', JSON.stringify(polls));
-                renderPolls();
-                alert('Terima kasih atas voting Anda!');
-            }
+        function submitPoll(e) {
+            e.preventDefault();
+            if (!db.currentUser) return alert("Login untuk ikut polling!");
+
+            const selected = document.querySelector('input[name="poll-film"]:checked').value;
+            db.polls[selected]++;
+            saveDb();
+
+            alert(`Terima kasih! Suaramu untuk "${selected}" telah dicatat.`);
+            renderPolling();
         }
 
-        // --- AUTHENTICATION ---
+        // --- 4. AUTHENTICATION ---
+        function updateNavState() {
+            const userInfo = document.getElementById('nav-user-info');
+            const btnLogin = document.getElementById('nav-btn-login');
+            const btnLogout = document.getElementById('nav-btn-logout');
+            const btnAdmin = document.getElementById('nav-btn-admin');
 
-        function toggleAuth(type) {
-            document.getElementById('login-error').style.display = 'none';
-            document.getElementById('reg-error').style.display = 'none';
-            
-            if (type === 'register') {
-                document.getElementById('login-form-container').style.display = 'none';
-                document.getElementById('register-form-container').style.display = 'block';
+            if (db.currentUser) {
+                userInfo.innerText = `Halo, ${db.currentUser.name}`;
+                userInfo.classList.remove('hidden');
+                btnLogout.classList.remove('hidden');
+                btnLogin.classList.add('hidden');
+
+                if (db.currentUser.role === 'admin') {
+                    btnAdmin.classList.remove('hidden');
+                } else {
+                    btnAdmin.classList.add('hidden');
+                }
             } else {
-                document.getElementById('register-form-container').style.display = 'none';
-                document.getElementById('login-form-container').style.display = 'block';
+                userInfo.classList.add('hidden');
+                btnLogout.classList.add('hidden');
+                btnAdmin.classList.add('hidden');
+                btnLogin.classList.remove('hidden');
             }
         }
 
-        function updateNavbar() {
-            const authSection = document.getElementById('auth-section');
-            const adminNav = document.getElementById('nav-admin');
-
-            if (currentUser) {
-                authSection.innerHTML = `
-                    <span style="color: var(--text-muted); margin-right: 1rem;">Halo, ${currentUser.name}</span>
-                    <button class="btn btn-outline" onclick="handleLogout()">Logout</button>
-                `;
-                adminNav.style.display = currentUser.role === 'admin' ? 'inline' : 'none';
-            } else {
-                authSection.innerHTML = `
-                    <button class="btn" onclick="navigate('auth')">Login / Daftar</button>
-                `;
-                adminNav.style.display = 'none';
-            }
+        function toggleAuthMode() {
+            document.getElementById('box-login').classList.toggle('hidden');
+            document.getElementById('box-register').classList.toggle('hidden');
         }
 
-        function handleRegister() {
-            const name = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-password').value;
-            const errorDiv = document.getElementById('reg-error');
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-password').value;
 
-            if (!name || !email || password.length < 6) {
-                errorDiv.innerText = 'Mohon isi form dengan benar. Password minimal 6 karakter.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            const users = JSON.parse(localStorage.getItem('stream_users'));
-            if (users.find(u => u.email === email)) {
-                errorDiv.innerText = 'Email sudah terdaftar!';
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            const newUser = { name, email, password, role: 'user' };
-            users.push(newUser);
-            localStorage.setItem('stream_users', JSON.stringify(users));
-            
-            currentUser = newUser;
-            localStorage.setItem('stream_currentUser', JSON.stringify(currentUser));
-            
-            updateNavbar();
-            navigate('home');
-        }
-
-        function handleLogin() {
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-            const errorDiv = document.getElementById('login-error');
-
-            const users = JSON.parse(localStorage.getItem('stream_users'));
-            const user = users.find(u => u.email === email && u.password === password);
-
+            const user = db.users.find(u => u.email === email && u.password === pass);
             if (user) {
-                currentUser = user;
-                localStorage.setItem('stream_currentUser', JSON.stringify(currentUser));
-                updateNavbar();
-                navigate('home');
+                db.currentUser = user;
+                saveDb();
+                updateNavState();
+                alert(`Selamat datang kembali, ${user.name}!`);
+                switchView('view-home');
             } else {
-                errorDiv.style.display = 'block';
+                alert("Email atau password salah!");
             }
         }
 
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('stream_currentUser');
-            updateNavbar();
-            navigate('home');
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-password').value;
+            const genre = document.getElementById('reg-genre').value;
+
+            if (db.users.find(u => u.email === email)) {
+                return alert("Email sudah terdaftar!");
+            }
+
+            const newUser = { name, email, password: pass, role: 'user', genre };
+            db.users.push(newUser);
+            db.currentUser = newUser;
+            saveDb();
+            updateNavState();
+
+            alert("Registrasi berhasil! Selamat menikmati StreamSync.");
+            switchView('view-home');
         }
 
-        // --- ADMIN DASHBOARD ---
+        function logout() {
+            db.currentUser = null;
+            saveDb();
+            updateNavState();
+            alert("Berhasil logout.");
+            switchView('view-home');
+        }
 
-        function switchAdminTab(tab) {
-            document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            const panel = document.getElementById('admin-panel-content');
-            
-            if (tab === 'users') {
-                const users = JSON.parse(localStorage.getItem('stream_users'));
-                panel.innerHTML = `
-                    <h2>Kelola Pengguna</h2>
-                    <table style="margin-top: 1rem;">
-                        <tr><th>Nama</th><th>Email</th><th>Role</th></tr>
-                        ${users.map(u => `
-                            <tr>
-                                <td>${u.name}</td>
-                                <td>${u.email}</td>
-                                <td><span class="badge ${u.role === 'admin' ? 'admin' : ''}">${u.role.toUpperCase()}</span></td>
-                            </tr>
-                        `).join('')}
-                    </table>
-                `;
-            } else if (tab === 'movies') {
-                const movies = JSON.parse(localStorage.getItem('stream_movies'));
-                panel.innerHTML = `
-                    <h2>Kelola Konten Film</h2>
-                    <p style="color:var(--text-muted); margin-bottom: 1rem;">Simulasi daftar film yang tersedia di database.</p>
-                    <table>
-                        <tr><th>Judul</th><th>Genre</th><th>Tahun</th><th>Rating</th></tr>
-                        ${movies.map(m => `
-                            <tr>
-                                <td>${m.title}</td>
-                                <td>${m.genre}</td>
-                                <td>${m.year}</td>
-                                <td>⭐ ${m.rating}</td>
-                            </tr>
-                        `).join('')}
-                    </table>
-                `;
-            } else if (tab === 'polls') {
-                const polls = JSON.parse(localStorage.getItem('stream_polls'));
-                panel.innerHTML = `
-                    <h2>Kelola Data Polling</h2>
-                    <button class="btn btn-outline" style="margin: 1rem 0;" onclick="alert('Fitur tambah opsi polling disimulasikan')">+ Tambah Opsi Polling</button>
-                    <table>
-                        <tr><th>Kandidat Film</th><th>Jumlah Voting</th><th>Aksi</th></tr>
-                        ${polls.map(p => `
-                            <tr>
-                                <td>${p.title}</td>
-                                <td>${p.votes} votes</td>
-                                <td><button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" onclick="alert('Fitur reset disimulasikan')">Reset</button></td>
-                            </tr>
-                        `).join('')}
-                    </table>
-                `;
+        // --- 5. ADMIN AREA ---
+        function switchAdminTab(tabId) {
+            document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Toggle active button style
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline');
+            });
+            event.target.classList.remove('btn-outline');
+            event.target.classList.add('btn-primary');
+        }
+
+        function renderAdmin() {
+            if (!db.currentUser || db.currentUser.role !== 'admin') {
+                alert("Akses Ditolak. Halaman ini hanya untuk admin.");
+                switchView('view-home');
+                return;
+            }
+
+            // Render Movies
+            const mBody = document.getElementById('admin-movies-tbody');
+            mBody.innerHTML = db.movies.map(m => `
+                <tr>
+                    <td>${m.id}</td>
+                    <td><img src="${m.thumb}" width="50" style="border-radius:4px;"></td>
+                    <td>${m.title}</td>
+                    <td>${m.genre}</td>
+                    <td>${m.rating}</td>
+                    <td>
+                        <button class="btn btn-danger" style="padding:5px 10px; font-size:12px;" onclick="deleteMovie(${m.id})">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Render Users
+            const uBody = document.getElementById('admin-users-tbody');
+            uBody.innerHTML = db.users.map(u => `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td><span style="padding:3px 8px; border-radius:4px; font-size:12px; background:${u.role === 'admin' ? 'var(--primary)' : '#333'}; color:${u.role === 'admin' ? '#000' : '#fff'};">${u.role}</span></td>
+                    <td>${u.genre}</td>
+                </tr>
+            `).join('');
+
+            // Set AI config radio
+            document.getElementById(db.aiMode === 'genre' ? 'ai-mode-genre' : 'ai-mode-rating').checked = true;
+        }
+
+        function deleteMovie(id) {
+            if (confirm("Yakin ingin menghapus film ini?")) {
+                db.movies = db.movies.filter(m => m.id !== id);
+                saveDb();
+                renderAdmin();
             }
         }
 
-        // Initialize App on load
-        window.onload = initApp;
+        function resetDummyMovies() {
+            if (confirm("Yakin ingin mereset data film ke default?")) {
+                db.movies = [...dummyMovies];
+                saveDb();
+                renderAdmin();
+            }
+        }
+
+        function saveAIConfig() {
+            const mode = document.querySelector('input[name="ai-mode"]:checked').value;
+            db.aiMode = mode;
+            saveDb();
+            alert("Konfigurasi AI Rekomendasi berhasil disimpan.");
+        }
+
+        // --- INIT APP ---
+        updateNavState();
+        switchView('view-home');
 
     </script>
 </body>
+
 </html>
