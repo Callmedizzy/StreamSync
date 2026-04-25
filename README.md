@@ -1,126 +1,71 @@
-# StreamSync (Daily Project 6)
+# StreamSync
 
-StreamSync adalah aplikasi streaming film berbasis web dengan fitur utama:
-- Watch Party real-time
-- Rekomendasi AI (mock scoring berbasis genre)
-- Paket hemat mingguan (simulasi pembayaran)
-- Polling film komunitas
-- Streaming konten dengan validasi langganan
+StreamSync adalah platform streaming video inovatif yang dirancang dengan antarmuka modern yang sangat responsif, dikembangkan khusus untuk bersaing dengan layanan streaming besar masa kini. Proyek ini dibangun sepenuhnya menggunakan **Vanilla HTML, CSS, dan JavaScript murni** dalam satu file statis (`index.html`), menjadikannya sangat cepat, ringan, dan **tidak bergantung pada server (*backend*) atau *database* eksternal**.
 
-## Platform
-WEB (React + Node.js)
+Semua *state* dan manajemen data disimpan secara otomatis di *Local Storage* browser Anda.
 
-## Tech Stack
-- Frontend: React + Vite + React Router
-- Backend: Node.js + Express + Socket.io
-- Database: MongoDB + Mongoose
-- Auth: JWT + bcrypt
+## 🚀 Fitur Utama
 
-## Fitur yang Diimplementasikan
-- Authentication: register, login, get profile
-- Katalog film + pencarian sederhana
-- Streaming page dengan validasi langganan aktif
-- Watch Party real-time (sync play/pause/seek + chat)
-- Rekomendasi AI mock berdasarkan preferensi genre & watch history
-- Pembelian paket mingguan (payment simulation)
-- Polling film (vote sekali per user)
-- Endpoint admin dasar untuk konten/user/pembayaran
+1. **Autentikasi (Simulasi)**: Daftar dan masuk ke dalam sistem. Data kredensial disimpan aman di *Local Storage*.
+2. **Katalog & Pencarian Pintar**: Mencari judul film/series dan melakukan filter berdasarkan *genre* secara dinamis dan *real-time*.
+3. **AI Rekomendasi Pintar**: Rekomendasi film di beranda yang disesuaikan berdasarkan genre preferensi spesifik yang dipilih pengguna saat mendaftar.
+4. **Detail & Pemutar Konten**: Antarmuka pemutar video (menggunakan YouTube *embed placeholder*) dilengkapi informasi rating, tahun, sinopsis, dsb.
+5. **Watch Party**: Simulasi fungsional pembuatan dan penggabungan *room code* unik untuk pengalaman nonton bareng.
+6. **Paket Hemat Mingguan**: Halaman pilihan langganan interaktif dengan opsi Gratis, Basic, dan Premium.
+7. **Polling Komunitas**: Fitur interaktif dinamis untuk mem-voting film selanjutnya (dengan persentase *bar chart* yang berjalan *real-time*).
+8. **Komunitas Lokal (Diskusi)**: Setiap film memiliki kolom komentar independen yang tersimpan khusus pada masing-masing halaman.
+9. **Admin Dashboard**: Tampilan tersembunyi khusus untuk akun "Admin" guna mengelola konten, akun pengguna, dan sistem AI.
 
-## Struktur Folder Project
+## 💻 Tech Stack
+
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+).
+- **Database/Storage**: `localStorage` API (Browser).
+- **Styling**: Vanilla CSS (*Pure CSS*) dengan implementasi *CSS Variables*, Flexbox/Grid layout, efek *Glassmorphism*, dan animasi transisi modern (tanpa Tailwind/Bootstrap).
+- **Dependencies**: Tidak ada sama sekali (0 dependencies).
+
+## 📂 Struktur Proyek
+
+Karena sifat proyek ini yang statis dan ditujukan untuk menjadi file tunggal (*Single File Application*), seluruh fungsionalitas dan logika (*styling* dan *script*) telah disatukan:
+
 ```text
 streamsync/
-├─ backend/
-│  ├─ src/
-│  │  ├─ config/
-│  │  ├─ controllers/
-│  │  ├─ middlewares/
-│  │  ├─ models/
-│  │  ├─ routes/
-│  │  ├─ services/
-│  │  ├─ socket/
-│  │  ├─ utils/
-│  │  ├─ app.js
-│  │  └─ server.js
-│  ├─ .env.example
-│  └─ package.json
-├─ frontend/
-│  ├─ src/
-│  │  ├─ api/
-│  │  ├─ components/
-│  │  ├─ contexts/
-│  │  ├─ pages/
-│  │  ├─ App.jsx
-│  │  └─ main.jsx
-│  ├─ .env.example
-│  └─ package.json
-├─ package.json
-└─ README.md
+├─ StreamSync/
+│  └─ index.html
+├─ README.md
+└─ .gitignore
 ```
 
-## Cara Install & Run
-### 1) Prasyarat
-- Node.js 18+ (disarankan Node 20+)
-- MongoDB aktif di `mongodb://127.0.0.1:27017` atau URI Atlas
+## 🛠️ Cara Menjalankan Aplikasi
 
-### 2) Install dependencies
-```bash
-npm run install:all
-```
-Jika PowerShell memblokir `npm.ps1`, gunakan:
-```bash
-npm.cmd run install:all
-```
+Proyek ini **sangat praktis**. Anda **tidak memerlukan** instalasi Node.js, Vercel, `npm install`, atau konfigurasi server/database apa pun. 
 
-### 3) Setup environment
-Backend:
-```bash
-copy backend\\.env.example backend\\.env
-```
-Frontend:
-```bash
-copy frontend\\.env.example frontend\\.env
-```
+Langkah-langkah:
+1. Unduh atau *Clone* repositori ini ke komputer Anda.
+2. Buka direktori/folder `StreamSync`.
+3. Klik ganda pada file `index.html` untuk membukanya secara langsung di peramban (browser) modern favorit Anda (seperti Google Chrome, Opera GX, Microsoft Edge, atau Firefox).
+4. Aplikasi siap digunakan untuk keperluan demonstrasi penuh!
 
-### 4) Seed data awal
-```bash
-npm run seed
-```
+## 🔑 Akun Default (Admin)
 
-### 5) Menjalankan aplikasi
-Opsi 1 (2 terminal):
-```bash
-npm --prefix backend run dev
-npm --prefix frontend run dev
-```
+Sistem secara otomatis akan menginjeksikan data dasar saat Anda pertama kali membuka file tersebut. Untuk melihat **Admin Dashboard** (di menu navigasi), Anda dapat melakukan login menggunakan kredensial Admin berikut:
 
-Opsi 2 (1 terminal):
-```bash
-npm run dev
-```
+- **Email**: `admin@streamsync.com`
+- **Password**: `admin`
 
-Frontend: `http://localhost:5173`  
-Backend API: `http://localhost:5000/api`
+## 📊 Tabel Pengujian Fungsional
 
-## Akun Default
-- Admin:
-  - Email: `admin@streamsync.local`
-  - Password: `Admin123!`
+Aplikasi ini sudah dipastikan berjalan dengan mulus dalam ekosistem browser.
 
-## Link Deployment (Dummy)
-- Frontend: https://streamsync-demo.vercel.app
-- Backend: https://streamsync-api-demo.onrender.com
+| No | Fitur | Skenario Uji | Hasil Aktual | Status |
+|----|------|--------------|--------------|--------|
+| 1 | **Sistem Navigasi (*SPA*)** | Berpindah *tab* menu tanpa reload. | Berpindah *view* secara instan. | PASS ✅ |
+| 2 | **Autentikasi (Daftar/Login)** | Buat pengguna baru lalu *login*. | UI memperbarui status Navbar & menyapa user. | PASS ✅ |
+| 3 | **Filter & Pencarian** | Mengubah kategori/mengetik teks. | Daftar *grid* film memfilter judul dengan tepat. | PASS ✅ |
+| 4 | **Komunitas Lokal (Komentar)** | Menambahkan ulasan ke suatu film. | Data komentar persisten, dan hanya muncul di film terkait. | PASS ✅ |
+| 5 | **Polling Film** | Melakukan *voting* pada form. | Persentase bar kalkulasi terupdate otomatis. | PASS ✅ |
+| 6 | **Aksi Dinamis (Watch Party & Download)** | Mengklik simulasi *event*. | Muncul notifikasi popup/modal interaktif yang dinamis. | PASS ✅ |
+| 7 | **Akses Admin** | Mengelola (menghapus) daftar film. | Katalog diperbarui secara global di localStorage. | PASS ✅ |
 
-## Link Github (Placeholder)
-- https://github.com/your-org/streamsync
+---
 
-## Tabel Pengujian
-Catatan: validasi build frontend berhasil. Pengujian end-to-end fitur backend membutuhkan service MongoDB aktif.
-
-| No | Fitur | Skenario Uji | Hasil yang Diharapkan | Hasil Aktual | Status |
-|----|------|--------------|----------------------|-------------|--------|
-| 1 | Login | User login dengan email/password valid | Sistem mengembalikan JWT token dan data user | Endpoint `POST /api/auth/login` mengembalikan token & profile sesuai implementasi | PASS (dengan MongoDB aktif) |
-| 2 | Streaming | User membuka halaman stream tanpa paket aktif lalu setelah beli paket | Tanpa paket ditolak, dengan paket video bisa diputar | Logic `SUBSCRIPTION_REQUIRED` dan stream URL sudah terimplementasi di endpoint stream | PASS (dengan MongoDB aktif) |
-| 3 | Watch Party | 2 user join room sama, play/pause/seek dari 1 user | Player user lain sinkron real-time + chat masuk | Event `join-party`, `party-sync`, `party-chat` sudah terhubung frontend-backend | PASS (dengan MongoDB aktif) |
-| 4 | Pembelian Paket | User memilih paket mingguan dan klik beli | Simulasi payment sukses, langganan aktif tersimpan dengan tanggal kedaluwarsa | Endpoint `POST /api/packages/purchase` membuat subscription aktif + payment reference | PASS (dengan MongoDB aktif) |
-| 5 | Rekomendasi AI | User membuka halaman rekomendasi setelah punya preferensi/history | Daftar film terurut berdasarkan skor rekomendasi mock | Endpoint `GET /api/recommendations/me` mengembalikan `recommendationScore` + reason | PASS (dengan MongoDB aktif) |
-
+*Catatan: Semua data yang diproses dan dimanipulasi di dalam proyek ini mengandalkan `localStorage`. Jika Anda membersihkan memori Cache/History Browser, maka konfigurasi data (pengguna baru, komentar, data rating polling) akan mereset ulang kembali ke data statis semula (default dummy data).*
