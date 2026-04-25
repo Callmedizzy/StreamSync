@@ -28,7 +28,7 @@ Semua *state* dan manajemen data disimpan secara otomatis di *Local Storage* bro
 Karena sifat proyek ini yang statis dan ditujukan untuk menjadi file tunggal (*Single File Application*), seluruh fungsionalitas dan logika (*styling* dan *script*) telah disatukan:
 
 ```text
-streamsync/
+StreamSync/
 ├─ StreamSync/
 │  └─ index.html
 ├─ README.md
