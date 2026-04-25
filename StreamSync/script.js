@@ -14,7 +14,27 @@
             { id: 9, title: 'Money Heist', genre: 'Action', thumb: 'https://picsum.photos/seed/mh/300/450', desc: 'An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history.', year: 2017, rating: 8.2, video: 'https://www.youtube.com/embed/hMANIarjT50' },
             { id: 10, title: 'Breaking Bad', genre: 'Drama', thumb: 'https://picsum.photos/seed/bb/300/450', desc: 'A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine.', year: 2008, rating: 9.5, video: 'https://www.youtube.com/embed/HhesaQXLuRY' },
             { id: 11, title: 'The Witcher', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/wit/300/450', desc: 'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.', year: 2019, rating: 8.1, video: 'https://www.youtube.com/embed/ndl1W4ltcmg' },
-            { id: 12, title: 'Spider-Man: No Way Home', genre: 'Action', thumb: 'https://picsum.photos/seed/sm/300/450', desc: 'With Spider-Man\'s identity now revealed, Peter asks Doctor Strange for help.', year: 2021, rating: 8.2, video: 'https://www.youtube.com/embed/JfVOs4VSpmA' }
+            { id: 12, title: 'Spider-Man: No Way Home', genre: 'Action', thumb: 'https://picsum.photos/seed/sm/300/450', desc: 'With Spider-Man\'s identity now revealed, Peter asks Doctor Strange for help.', year: 2021, rating: 8.2, video: 'https://www.youtube.com/embed/JfVOs4VSpmA' },
+            { id: 13, title: 'Squid Game', genre: 'Drama', thumb: 'https://picsum.photos/seed/squid/300/450', desc: 'Hundreds of cash-strapped players accept a strange invitation to compete in children\'s games.', year: 2021, rating: 8.0, video: 'https://www.youtube.com/embed/oqxAJKy0ii4' },
+            { id: 14, title: 'Oppenheimer', genre: 'Drama', thumb: 'https://picsum.photos/seed/opp/300/450', desc: 'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.', year: 2023, rating: 8.6, video: 'https://www.youtube.com/embed/uYPbbksJxIg' },
+            { id: 15, title: 'John Wick', genre: 'Action', thumb: 'https://picsum.photos/seed/jw/300/450', desc: 'An ex-hit-man comes out of retirement to track down the gangsters that killed his dog.', year: 2014, rating: 7.4, video: 'https://www.youtube.com/embed/C0BMx-qxsP4' },
+            { id: 16, title: 'The Mandalorian', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/mando/300/450', desc: 'The travels of a lone bounty hunter in the outer reaches of the galaxy.', year: 2019, rating: 8.7, video: 'https://www.youtube.com/embed/aOC8E8z_ifw' },
+            { id: 17, title: 'Black Mirror', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/bm/300/450', desc: 'An anthology series exploring a twisted, high-tech multiverse.', year: 2011, rating: 8.8, video: 'https://www.youtube.com/embed/V0XOApF5nLU' },
+            { id: 18, title: 'Peaky Blinders', genre: 'Drama', thumb: 'https://picsum.photos/seed/pb/300/450', desc: 'A gangster family epic set in 1900s England.', year: 2013, rating: 8.8, video: 'https://www.youtube.com/embed/oVzVdvGIC7U' },
+            { id: 19, title: 'The Boys', genre: 'Action', thumb: 'https://picsum.photos/seed/boys/300/450', desc: 'A group of vigilantes set out to take down corrupt superheroes.', year: 2019, rating: 8.7, video: 'https://www.youtube.com/embed/M1bhOaLV4FU' },
+            { id: 20, title: 'Dune', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/dune/300/450', desc: 'A noble family becomes embroiled in a war for control over the galaxy\'s most valuable asset.', year: 2021, rating: 8.0, video: 'https://www.youtube.com/embed/n9xhKvTKcGs' },
+            { id: 21, title: 'Get Out', genre: 'Horror', thumb: 'https://picsum.photos/seed/go/300/450', desc: 'A young African-American visits his white girlfriend\'s parents for the weekend.', year: 2017, rating: 7.7, video: 'https://www.youtube.com/embed/DzfpyUB60YY' },
+            { id: 22, title: 'It', genre: 'Horror', thumb: 'https://picsum.photos/seed/it/300/450', desc: 'A group of bullied kids band together to destroy a shape-shifting monster.', year: 2017, rating: 7.3, video: 'https://www.youtube.com/embed/xKJmEC5ieOk' },
+            { id: 23, title: 'Doctor Strange', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/ds/300/450', desc: 'A brilliant neurosurgeon is drawn into the world of the mystic arts.', year: 2016, rating: 7.5, video: 'https://www.youtube.com/embed/HSzx-zryEgM' },
+            { id: 24, title: 'Game of Thrones', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/got/300/450', desc: 'Nine noble families fight for control over the lands of Westeros.', year: 2011, rating: 9.2, video: 'https://www.youtube.com/embed/KPLWWIOCOOQ' },
+            { id: 25, title: 'Sherlock', genre: 'Thriller', thumb: 'https://picsum.photos/seed/sher/300/450', desc: 'A modern update finds the famous sleuth and his doctor partner solving crime in London.', year: 2010, rating: 9.1, video: 'https://www.youtube.com/embed/xK7S9mrFWL4' },
+            { id: 26, title: 'Mindhunter', genre: 'Thriller', thumb: 'https://picsum.photos/seed/mind/300/450', desc: 'Two FBI agents are tasked with interviewing serial killers to solve open cases.', year: 2017, rating: 8.6, video: 'https://www.youtube.com/embed/edaigXKEoO4' },
+            { id: 27, title: 'The Conjuring', genre: 'Horror', thumb: 'https://picsum.photos/seed/conj/300/450', desc: 'Paranormal investigators work to help a family terrorized by a dark presence.', year: 2013, rating: 7.5, video: 'https://www.youtube.com/embed/k10ETZ41q5o' },
+            { id: 28, title: 'Avatar', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/ava/300/450', desc: 'A paraplegic Marine becomes torn between following orders and protecting an alien world.', year: 2009, rating: 7.8, video: 'https://www.youtube.com/embed/5PSNL1qE6VY' },
+            { id: 29, title: 'Top Gun: Maverick', genre: 'Action', thumb: 'https://picsum.photos/seed/tgm/300/450', desc: 'After thirty years, Maverick is still pushing the envelope as a top naval aviator.', year: 2022, rating: 8.3, video: 'https://www.youtube.com/embed/giXcoVnwV19' },
+            { id: 30, title: 'Everything Everywhere', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/eea/300/450', desc: 'An aging Chinese immigrant is swept up in an insane adventure across universes.', year: 2022, rating: 7.8, video: 'https://www.youtube.com/embed/wxN1T1uxQ2g' },
+            { id: 31, title: 'Wednesday', genre: 'Horror', thumb: 'https://picsum.photos/seed/wed/300/450', desc: 'Follows Wednesday Addams\' years as a student mastering her emerging psychic ability.', year: 2022, rating: 8.1, video: 'https://www.youtube.com/embed/Di310WS8zLk' },
+            { id: 32, title: 'Loki', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/loki/300/450', desc: 'The mercurial villain Loki resumes his role as the God of Mischief.', year: 2021, rating: 8.2, video: 'https://www.youtube.com/embed/nW948Va-l10' }
         ];
 
         // Initial DB structure
@@ -31,6 +51,14 @@
                 aiMode: 'genre' // 'genre' or 'rating'
             };
             saveDb();
+        } else {
+            // Auto-sync new dummy movies to existing DB
+            if (db.movies.length < dummyMovies.length) {
+                const existingIds = db.movies.map(m => m.id);
+                const newMovies = dummyMovies.filter(m => !existingIds.includes(m.id));
+                db.movies = [...db.movies, ...newMovies];
+                saveDb();
+            }
         }
 
         function saveDb() {
