@@ -143,7 +143,8 @@
             });
 
             // Call specific render logic based on view
-            if (viewId === 'view-home') renderHome();
+                        if (viewId === 'view-home') renderHome();
+            if (viewId === 'view-tvshows') renderTvShows();
             if (viewId === 'view-search') doSearch();
             if (viewId === 'view-polling') renderPolling();
             if (viewId === 'view-admin') renderAdmin();
@@ -253,6 +254,41 @@
                 aiMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
             }
             document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 6).map((m, i) => createMovieCard(m, i + 3)).join('');
+        }
+
+        
+        function renderTvShows() {
+            const movies = db.movies;
+            if(!movies || movies.length === 0) return;
+            
+            // Set Hero Banner
+            const tvHero = document.getElementById('tvshows-hero');
+            const dramaSciFiMovies = movies.filter(m => m.genre === 'Drama' || m.genre === 'Sci-Fi');
+            const heroMovie = dramaSciFiMovies.length > 0 ? dramaSciFiMovies[Math.floor(Math.random() * dramaSciFiMovies.length)] : movies[0];
+            
+            if (tvHero) {
+                tvHero.style.backgroundImage = `url(${heroMovie.thumb.replace('300/450', '1200/600')})`;
+                document.getElementById('tvshows-hero-title').innerText = heroMovie.title;
+                document.getElementById('tvshows-hero-desc').innerText = heroMovie.desc;
+            }
+            
+            // Populate Rows
+            const popular = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 15);
+            const drama = movies.filter(m => m.genre === 'Drama');
+            const scifi = movies.filter(m => m.genre === 'Sci-Fi');
+            const horror = movies.filter(m => m.genre === 'Horror' || m.genre === 'Thriller');
+            
+            const renderGrid = (id, data) => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.innerHTML = data.map((m, i) => createMovieCard(m, 4)).join('');
+                }
+            };
+            
+            renderGrid('grid-tvshows-popular', popular);
+            renderGrid('grid-tvshows-drama', drama);
+            renderGrid('grid-tvshows-scifi', scifi);
+            renderGrid('grid-tvshows-horror', horror);
         }
 
         // Search View

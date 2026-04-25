@@ -20,7 +20,7 @@
             <div class="logo" onclick="switchView('view-home')">STREAMSYNC</div>
             <ul>
                 <li><a href="#" class="nav-link active" data-target="view-home" onclick="switchView('view-home')">Home</a></li>
-                <li><a href="#" class="nav-link" data-target="view-search" onclick="switchView('view-search')">TV Shows</a></li>
+                <li><a href="#" class="nav-link" data-target="view-tvshows" onclick="switchView('view-tvshows')">TV Shows</a></li>
                 <li><a href="#" class="nav-link" data-target="view-packages" onclick="switchView('view-packages')">Movies</a></li>
                 <li><a href="#" class="nav-link" data-target="view-polling" onclick="switchView('view-polling')">New & Popular</a></li>
                 <li><a href="#" class="nav-link" data-target="view-watchparty" onclick="switchView('view-watchparty')">My Room</a></li>
@@ -73,7 +73,33 @@
             </div>
         </section>
 
-        <!-- ==============================================
+                <!-- ==============================================
+             TV SHOWS VIEW
+             ============================================== -->
+        <section id="view-tvshows" class="view-section hidden">
+            <div id="tvshows-hero" class="hero" style="height: 60vh; margin-bottom: 20px; position: relative;">
+                <div class="hero-content" style="padding-top: 100px;">
+                    <div class="hero-badge">SERIES</div>
+                    <h1 id="tvshows-hero-title" class="hero-title">TV Shows</h1>
+                    <p id="tvshows-hero-desc" class="hero-desc" style="max-width: 600px; text-shadow: 1px 1px 3px black;">Binge-worthy series to watch right now.</p>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding-bottom: 50px; position: relative; z-index: 5;">
+                <h2 class="section-title">Popular TV Shows</h2>
+                <div class="movie-row" id="grid-tvshows-popular"></div>
+                
+                <h2 class="section-title">Drama Series</h2>
+                <div class="movie-row" id="grid-tvshows-drama"></div>
+                
+                <h2 class="section-title">Sci-Fi Series</h2>
+                <div class="movie-row" id="grid-tvshows-scifi"></div>
+                
+                <h2 class="section-title">Horror Series</h2>
+                <div class="movie-row" id="grid-tvshows-horror"></div>
+            </div>
+        </section>
+
+<!-- ==============================================
              SEARCH VIEW
              ============================================== -->
         <section id="view-search" class="view-section hidden">
