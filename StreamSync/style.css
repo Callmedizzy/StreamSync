@@ -316,10 +316,10 @@
             border-radius: 2px;
             z-index: 2;
         }
-        .badge-new {
+                .badge-new {
             position: absolute;
             top: 5px;
-            right: 5px;
+            left: 5px;
             background: var(--primary);
             color: white;
             font-size: 0.7rem;
@@ -414,16 +414,11 @@
             border-bottom: none;
         }
 
-        .comment-header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: transparent;
-            transition: background 0.3s ease;
-            z-index: 1000;
-        }
-        header.scrolled {
-            background: #141414;
+                .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
         }
 
         .comment-avatar {
@@ -525,16 +520,11 @@
             text-align: left;
         }
 
-        .poll-header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: transparent;
-            transition: background 0.3s ease;
-            z-index: 1000;
-        }
-        header.scrolled {
-            background: #141414;
+                .poll-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .poll-bar-bg {

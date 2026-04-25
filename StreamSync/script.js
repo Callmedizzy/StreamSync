@@ -264,51 +264,31 @@
             alert(`Anda telah berhasil berlangganan paket ${pkgName}!\nTagihan akan dikirimkan ke email Anda.`);
         }
 
-        // Polling Feature
+                // New & Popular Feature
         function renderPolling() {
-            const optionsDiv = document.getElementById('poll-options');
-            const resultsDiv = document.getElementById('poll-results-container');
-
-            const polls = db.polls;
-            const totalVotes = Object.values(polls).reduce((a, b) => a + b, 0);
-
-            // Render Form
-            optionsDiv.innerHTML = Object.keys(polls).map(film => `
-                <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:var(--bg-surface); padding:10px; border-radius:6px; border:1px solid var(--border-color);">
-                    <input type="radio" name="poll-film" value="${film}" required>
-                    ${film}
-                </label>
-            `).join('');
-
-            // Render Results (Bars)
-            resultsDiv.innerHTML = Object.keys(polls).map(film => {
-                const votes = polls[film];
-                const pct = totalVotes === 0 ? 0 : Math.round((votes / totalVotes) * 100);
-                return `
-                    <div class="poll-item">
-                        <div class="poll-header">
-                            <span>${film}</span>
-                            <span style="color:var(--primary); font-weight:bold;">${pct}% (${votes} vote)</span>
+            const movies = [...db.movies].sort((a, b) => b.rating - a.rating); // Sort by highest rating
+            
+            const grid = document.getElementById('grid-new-popular');
+            if (grid) {
+                // Top 3 gets TOP 10 badge, rest gets Recently Added badge
+                grid.innerHTML = movies.map((m, i) => {
+                    let badge = '';
+                    if (i < 3) badge = `<div class="badge-top10">TOP 10</div>`;
+                    else badge = `<div class="badge-new">Recently Added</div>`;
+                    
+                    return `
+                        <div class="movie-card" style="width: 250px; height: 140px; margin-bottom: 20px;" onclick="goToDetail(${m.id})">
+                            ${badge}
+                            <img src="${m.thumb.replace('300/450', '400/225')}" alt="${m.title}" class="movie-thumb" loading="lazy">
+                            <div class="movie-info">
+                                ${m.title}
+                            </div>
                         </div>
-                        <div class="poll-bar-bg">
-                            <div class="poll-bar-fill" style="width: ${pct}%"></div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            }
         }
 
-        function submitPoll(e) {
-            e.preventDefault();
-            if (!db.currentUser) return alert("Login untuk ikut polling!");
-
-            const selected = document.querySelector('input[name="poll-film"]:checked').value;
-            db.polls[selected]++;
-            saveDb();
-
-            alert(`Terima kasih! Suaramu untuk "${selected}" telah dicatat.`);
-            renderPolling();
-        }
 
         // --- 4. AUTHENTICATION ---
         function updateNavState() {

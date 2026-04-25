@@ -23,7 +23,7 @@
                 <li><a href="#" class="nav-link" data-target="view-search" onclick="switchView('view-search')">TV Shows</a></li>
                 <li><a href="#" class="nav-link" data-target="view-packages" onclick="switchView('view-packages')">Movies</a></li>
                 <li><a href="#" class="nav-link" data-target="view-polling" onclick="switchView('view-polling')">New & Popular</a></li>
-                <li><a href="#" class="nav-link" data-target="view-watchparty" onclick="switchView('view-watchparty')">My List</a></li>
+                <li><a href="#" class="nav-link" data-target="view-watchparty" onclick="switchView('view-watchparty')">My Room</a></li>
             </ul>
             <div class="nav-actions">
                 <span onclick="switchView('view-search')" style="cursor:pointer; font-size:1.2rem; margin-right:10px;">🔍</span>
@@ -231,38 +231,13 @@
             </div>
         </section>
 
-        <!-- ==============================================
-             POLLING VIEW
+                <!-- ==============================================
+             POLLING VIEW / NEW & POPULAR
              ============================================== -->
         <section id="view-polling" class="view-section hidden">
-            <div class="container" style="padding-top: 120px; min-height: 80vh;">
-                <div class="card-center" style="max-width: 800px;">
-                    <h2>📊 Polling Film dari Pengguna</h2>
-                    <p style="color:var(--text-muted); margin-bottom: 30px;">Bantu kami menentukan film atau series apa
-                        yang harus ditambahkan minggu depan!</p>
-
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; text-align:left;">
-                        <!-- Form Voting -->
-                        <div>
-                            <h3 style="margin-bottom:20px; font-size:1.2rem;">Beri Suaramu</h3>
-                            <form id="poll-form" onsubmit="submitPoll(event)">
-                                <div id="poll-options"
-                                    style="display:flex; flex-direction:column; gap:15px; margin-bottom: 20px;">
-                                    <!-- Options injected by JS -->
-                                </div>
-                                <button type="submit" class="btn btn-primary" style="width:100%;">Vote Sekarang</button>
-                            </form>
-                        </div>
-
-                        <!-- Results -->
-                        <div>
-                            <h3 style="margin-bottom:20px; font-size:1.2rem;">Hasil Sementara</h3>
-                            <div id="poll-results-container">
-                                <!-- Results injected by JS -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="container-fluid" style="padding-top: 120px; min-height: 80vh; padding-left: 4%; padding-right: 4%;">
+                <h2 class="section-title">New & Popular</h2>
+                <div class="movie-row wrap" id="grid-new-popular" style="gap: 15px;"></div>
             </div>
         </section>
 
