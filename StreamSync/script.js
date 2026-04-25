@@ -400,6 +400,45 @@
             }
         }
 
+        
+        // Row Scrolling Logic
+        function scrollRow(rowId, amount) {
+            const row = document.getElementById(rowId);
+            if(row) {
+                row.scrollBy({ left: amount, behavior: 'smooth' });
+                setTimeout(updateRowButtons, 400); // Check again after scroll
+            }
+        }
+
+        function updateRowButtons() {
+            document.querySelectorAll('.row-wrapper').forEach(wrapper => {
+                const row = wrapper.querySelector('.movie-row');
+                const leftBtn = wrapper.querySelector('.left-btn');
+                const rightBtn = wrapper.querySelector('.right-btn');
+                if(!row || !leftBtn || !rightBtn) return;
+                
+                if (row.scrollLeft <= 5) {
+                    leftBtn.classList.add('hidden-btn');
+                } else {
+                    leftBtn.classList.remove('hidden-btn');
+                }
+                
+                if (row.scrollLeft + row.clientWidth >= row.scrollWidth - 5) {
+                    rightBtn.classList.add('hidden-btn');
+                } else {
+                    rightBtn.classList.remove('hidden-btn');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.movie-row').forEach(row => {
+                row.addEventListener('scroll', updateRowButtons);
+            });
+            window.addEventListener('resize', updateRowButtons);
+            setInterval(updateRowButtons, 1000); // Polling for safety when dom changes
+        });
+
         // Actions Features
         function downloadOffline() {
             if (!db.currentUser) return alert("Login untuk mengunduh film!");

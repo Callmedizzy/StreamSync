@@ -66,10 +66,18 @@
 
             <div class="container-fluid" style="margin-top: -100px; position: relative; z-index: 10; padding: 0 4%;">
                 <h2 class="section-title" style="margin-bottom:0; font-size:1.2rem;">Trending Now</h2>
-                <div class="movie-row" id="grid-trending"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-trending', -600)">❮</button>
+                    <div class="movie-row" id="grid-trending"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-trending', 600)">❯</button>
+                </div>
 
                 <h2 class="section-title" style="margin-top:20px; margin-bottom:0; font-size:1.2rem;">✨ AI Rekomendasi <span id="ai-genre-label" style="font-size:0.9rem; color:var(--text-muted); font-weight:normal; margin-left:10px;"></span></h2>
-                <div class="movie-row" id="grid-ai"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-ai', -600)">❮</button>
+                    <div class="movie-row" id="grid-ai"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-ai', 600)">❯</button>
+                </div>
             </div>
         </section>
 
@@ -86,16 +94,32 @@
             </div>
             <div class="container-fluid" style="padding-bottom: 50px; position: relative; z-index: 5;">
                 <h2 class="section-title">Popular TV Shows</h2>
-                <div class="movie-row" id="grid-tvshows-popular"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-tvshows-popular', -600)">❮</button>
+                    <div class="movie-row" id="grid-tvshows-popular"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-tvshows-popular', 600)">❯</button>
+                </div>
                 
                 <h2 class="section-title">Drama Series</h2>
-                <div class="movie-row" id="grid-tvshows-drama"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-tvshows-drama', -600)">❮</button>
+                    <div class="movie-row" id="grid-tvshows-drama"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-tvshows-drama', 600)">❯</button>
+                </div>
                 
                 <h2 class="section-title">Sci-Fi Series</h2>
-                <div class="movie-row" id="grid-tvshows-scifi"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-tvshows-scifi', -600)">❮</button>
+                    <div class="movie-row" id="grid-tvshows-scifi"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-tvshows-scifi', 600)">❯</button>
+                </div>
                 
                 <h2 class="section-title">Horror Series</h2>
-                <div class="movie-row" id="grid-tvshows-horror"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-tvshows-horror', -600)">❮</button>
+                    <div class="movie-row" id="grid-tvshows-horror"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-tvshows-horror', 600)">❯</button>
+                </div>
             </div>
         </section>
 
@@ -118,7 +142,11 @@
                         <option value="Fantasy">Fantasy</option>
                     </select>
                 </div>
-                <div class="movie-row wrap" id="grid-search-results"></div>
+                <div class="row-wrapper">
+                    <button class="row-btn left-btn" onclick="scrollRow('grid-search-results', -600)">❮</button>
+                    <div class="movie-row" id="grid-search-results"></div>
+                    <button class="row-btn right-btn" onclick="scrollRow('grid-search-results', 600)">❯</button>
+                </div>
                 <div id="search-empty" class="hidden"
                     style="text-align:center; padding: 50px; color: var(--text-muted);">
                     <h3>Pencarian tidak ditemukan</h3>
