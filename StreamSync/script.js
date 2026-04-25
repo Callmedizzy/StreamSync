@@ -235,7 +235,7 @@
             document.getElementById('hero-play-btn').onclick = () => goToDetail(heroMovie.id);
 
             // Trending (Sort by rating)
-            const trending = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
+            const trending = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 10);
             document.getElementById('grid-trending').innerHTML = trending.map((m, i) => createMovieCard(m, i)).join('');
 
             // AI Recommendation
@@ -247,13 +247,16 @@
                 aiMovies = movies.filter(m => m.genre === userGenre);
                 // Fallback if not enough movies
                 if (aiMovies.length < 4) {
-                    aiMovies = [...aiMovies, ...movies.filter(m => m.genre !== userGenre)].slice(0, 6);
+                    aiMovies = [...aiMovies, ...movies.filter(m => m.genre !== userGenre)].slice(0, 10);
                 }
             } else {
                 document.getElementById('ai-genre-label').innerText = `(Berdasarkan Rating Tertinggi Global)`;
-                aiMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
+                aiMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 10);
             }
-            document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 6).map((m, i) => createMovieCard(m, i + 3)).join('');
+            document.getElementById('grid-ai').innerHTML = aiMovies.slice(0, 10).map((m, i) => createMovieCard(m, i + 3)).join('');
+            
+            // Update scroll buttons for the rows
+            setTimeout(updateRowButtons, 200);
         }
 
         
