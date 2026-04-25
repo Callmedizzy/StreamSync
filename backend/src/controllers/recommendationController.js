@@ -1,5 +1,5 @@
-import Movie from "../models/Movie.js";
-import User from "../models/User.js";
+// import Movie from "../models/Movie.js";
+// import User from "../models/User.js";
 import { generateRecommendations } from "../services/recommendationService.js";
 
 export const getPersonalRecommendations = async (req, res, next) => {

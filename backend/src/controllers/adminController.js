@@ -1,7 +1,7 @@
-import Movie from "../models/Movie.js";
-import Poll from "../models/Poll.js";
-import Subscription from "../models/Subscription.js";
-import User from "../models/User.js";
+// import Movie from "../models/Movie.js";
+// import Poll from "../models/Poll.js";
+// import Subscription from "../models/Subscription.js";
+// import User from "../models/User.js";
 
 export const getSystemSummary = async (req, res, next) => {
   try {

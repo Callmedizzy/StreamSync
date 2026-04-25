@@ -1,5 +1,5 @@
-import Movie from "../models/Movie.js";
-import User from "../models/User.js";
+// import Movie from "../models/Movie.js";
+// import User from "../models/User.js";
 import { getActiveSubscription } from "../utils/subscriptionUtils.js";
 
 export const listMovies = async (req, res, next) => {

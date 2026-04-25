@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamSync - Streaming Masa Depan</title>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Dark Theme with Neon Green Accents */
+        :root {
+            --bg-base: #09090b;
+            --bg-surface: #18181b;
+            --bg-surface-glass: rgba(24, 24, 27, 0.7);
+            --primary: #00d26a;
+            --primary-hover: #00b359;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-surface-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: var(--bg-base);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 210, 106, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 210, 106, 0.1);
+        }
+
+        /* Main Container */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem 5%;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 60vh;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem;
+            background: linear-gradient(to top, var(--bg-base) 0%, transparent 100%), url('https://picsum.photos/1920/1080?random=1') center/cover;
+            margin-bottom: 3rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        /* Movie Grid */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .movie-card {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .movie-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-color: var(--primary);
+        }
+
+        .movie-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 1rem;
+        }
+
+        .movie-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .movie-rating {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        /* Search Page */
+        .search-bar-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-inline: auto;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+        }
+
+        /* Watch Page */
+        .watch-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .movie-details-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .movie-title-large {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Watch Party & Comments */
+        .community-section {
+            background: var(--bg-surface);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .comment-list {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .comment-item {
+            background: rgba(255,255,255,0.03);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Packages */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .package-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 210, 106, 0.15);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1.5rem 0;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .package-features li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-features li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Polling */
+        .poll-container {
+            background: var(--bg-surface);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .poll-option {
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .poll-bar-bg {
+            background: rgba(255,255,255,0.05);
+            height: 40px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            border: 1px solid transparent;
+            transition: border 0.2s;
+        }
+
+        .poll-option:hover .poll-bar-bg {
+            border-color: var(--border);
+        }
+
+        .poll-bar-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: rgba(0, 210, 106, 0.2);
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+
+        .poll-text {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Forms */
+        .auth-container {
+            max-width: 400px;
+            margin: 4rem auto;
+            background: var(--bg-surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-base);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .admin-sidebar {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .admin-nav-item {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background: rgba(0, 210, 106, 0.1);
+            color: var(--primary);
+        }
+
+        .admin-panel {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .badge.admin {
+            background: rgba(0, 210, 106, 0.2);
+            color: var(--primary);
+        }
+
+        /* Modal / Watch Party Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--bg-surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .room-code {
+            font-size: 3rem;
+            letter-spacing: 5px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1.5rem 0;
+            background: var(--bg-base);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo" onclick="navigate('home')">Stream<span>Sync</span></div>
+        <div class="nav-links">
+            <a onclick="navigate('home')" id="nav-home">Home</a>
+            <a onclick="navigate('search')" id="nav-search">Cari</a>
+            <a onclick="navigate('package')" id="nav-package">Paket</a>
+            <a onclick="navigate('polling')" id="nav-polling">Polling</a>
+            <a onclick="navigate('admin')" id="nav-admin" style="display:none;">Admin Dashboard</a>
+        </div>
+        <div class="nav-actions" id="auth-section">
+            <!-- Injected by JS -->
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Streaming Tanpa Batas, Kapanpun.</h1>
+                    <p>Nikmati film eksklusif, rekomendasi AI pintar, dan nonton bareng teman (Watch Party) dalam satu platform.</p>
+                    <button class="btn" style="font-size: 1.1rem; padding: 0.8rem 2rem;" onclick="navigate('search')">Mulai Menonton</button>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <div class="section-title">AI Rekomendasi Pintar</div>
+                <select class="input-field" style="width: 200px; padding: 0.5rem;" id="ai-genre-filter" onchange="renderAiRecommendations()">
+                    <option value="all">Semua Genre</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Action">Action</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Animation">Animation</option>
+                </select>
+            </div>
+            <div class="movie-grid" id="ai-movies-grid">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <div class="section-title">Film & Series Populer</div>
+            </div>
+            <div class="movie-grid" id="home-movies-grid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Search Page -->
+        <section id="search" class="page">
+            <div class="search-bar-container">
+                <input type="text" id="search-input" class="input-field" placeholder="Cari judul film, series, atau genre..." onkeyup="handleSearch()">
+                <button class="btn" onclick="handleSearch()">Cari Konten</button>
+            </div>
+            
+            <div class="section-header">
+                <div class="section-title">Hasil Pencarian</div>
+            </div>
+            <div class="movie-grid" id="search-movies-grid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Watch Page -->
+        <section id="watch" class="page">
+            <div class="watch-container">
+                <button class="btn btn-outline" style="align-self: flex-start;" onclick="navigate('home')">← Kembali</button>
+                
+                <div class="video-player-wrapper">
+                    <!-- Placeholder YouTube Embed -->
+                    <iframe id="video-embed" src="" allowfullscreen></iframe>
+                </div>
+
+                <div class="movie-details-bar">
+                    <div>
+                        <h1 class="movie-title-large" id="watch-title">Title</h1>
+                        <div style="color: var(--text-muted); margin-bottom: 1rem;">
+                            <span id="watch-year">2023</span> • <span id="watch-genre">Action</span> • ⭐ <span id="watch-rating">8.5</span>
+                        </div>
+                        <p id="watch-desc" style="max-width: 800px; line-height: 1.6;">Description</p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn" onclick="startWatchParty()">🎉 Mulai Watch Party</button>
+                        <button class="btn btn-outline" onclick="downloadOffline()">⬇ Download Offline</button>
+                    </div>
+                </div>
+
+                <!-- Komunitas Section -->
+                <div class="community-section">
+                    <div class="section-title">Komunitas Lokal (Diskusi Film)</div>
+                    <div class="comment-list" id="comment-list">
+                        <!-- Comments injected here -->
+                    </div>
+                    <div class="comment-form">
+                        <input type="text" id="comment-input" class="input-field" placeholder="Tulis pendapatmu tentang film ini...">
+                        <button class="btn" onclick="addComment()">Kirim</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Packages Page -->
+        <section id="package" class="page">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h1>Pilih Paket Hemat Mingguan</h1>
+                <p style="color: var(--text-muted);">Fleksibel, tanpa komitmen panjang. Batal kapan saja.</p>
+            </div>
+            
+            <div class="packages-grid">
+                <div class="package-card">
+                    <h3>Gratis</h3>
+                    <div class="package-price">Rp 0<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
+                    <ul class="package-features">
+                        <li>Akses konten terbatas</li>
+                        <li>Kualitas SD (480p)</li>
+                        <li>Ada Iklan</li>
+                    </ul>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="buyPackage('Gratis')">Pilih Paket</button>
+                </div>
+
+                <div class="package-card popular">
+                    <div class="popular-badge">PALING LAKU</div>
+                    <h3>Basic</h3>
+                    <div class="package-price">Rp 15.000<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
+                    <ul class="package-features">
+                        <li>Akses semua film & series</li>
+                        <li>Kualitas HD (1080p)</li>
+                        <li>Tanpa Iklan</li>
+                        <li>Fitur Download Offline</li>
+                    </ul>
+                    <button class="btn" style="width: 100%;" onclick="buyPackage('Basic')">Pilih Paket</button>
+                </div>
+
+                <div class="package-card">
+                    <h3>Premium (Keluarga)</h3>
+                    <div class="package-price">Rp 35.000<span style="font-size: 1rem; color:var(--text-muted)">/mgg</span></div>
+                    <ul class="package-features">
+                        <li>Semua fitur Basic</li>
+                        <li>Kualitas 4K HDR</li>
+                        <li>Bisa ditonton di 4 layar</li>
+                        <li>Akses Watch Party VIP</li>
+                    </ul>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="buyPackage('Premium')">Pilih Paket</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Polling Page -->
+        <section id="polling" class="page">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1>Polling Film Pilihan Pengguna</h1>
+                <p style="color: var(--text-muted);">Bantu kami menentukan film apa yang harus kami tambahkan minggu depan!</p>
+            </div>
+            
+            <div class="poll-container" id="poll-container">
+                <!-- Polling options injected via JS -->
+            </div>
+        </section>
+
+        <!-- Auth Page (Login/Register) -->
+        <section id="auth" class="page">
+            <div class="auth-container" id="login-form-container">
+                <h2>Masuk ke Akun</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Lanjutkan pengalaman streaming Anda</p>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••">
+                    <div id="login-error" class="error-msg">Email atau password salah.</div>
+                </div>
+                
+                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="handleLogin()">Login</button>
+                
+                <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+                    Belum punya akun? <a href="#" style="color: var(--primary);" onclick="toggleAuth('register')">Daftar sekarang</a>
+                </p>
+            </div>
+
+            <div class="auth-container" id="register-form-container" style="display: none;">
+                <h2>Daftar Akun Baru</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Bergabung dengan komunitas StreamSync</p>
+                
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="reg-name" class="form-control" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-password" class="form-control" placeholder="Minimal 6 karakter">
+                    <div id="reg-error" class="error-msg">Mohon isi semua field dengan benar.</div>
+                </div>
+                
+                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="handleRegister()">Daftar</button>
+                
+                <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+                    Sudah punya akun? <a href="#" style="color: var(--primary);" onclick="toggleAuth('login')">Login di sini</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="admin" class="page">
+            <h1 style="margin-bottom: 2rem;">Admin Dashboard</h1>
+            
+            <div class="admin-grid">
+                <div class="admin-sidebar">
+                    <a class="admin-nav-item active" onclick="switchAdminTab('users')">Kelola Pengguna</a>
+                    <a class="admin-nav-item" onclick="switchAdminTab('movies')">Kelola Konten Film</a>
+                    <a class="admin-nav-item" onclick="switchAdminTab('polls')">Kelola Polling</a>
+                </div>
+                
+                <div class="admin-panel" id="admin-panel-content">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Watch Party Modal -->
+    <div class="modal-overlay" id="watch-party-modal">
+        <div class="modal-content">
+            <h2>🎉 Watch Party Dibuat!</h2>
+            <p style="margin-top: 1rem; color: var(--text-muted);">Bagikan kode ini ke teman-temanmu agar mereka bisa bergabung menonton bersama secara real-time.</p>
+            <div class="room-code" id="wp-room-code">A8F9X2</div>
+            <button class="btn" style="width: 100%;" onclick="closeModal()">Tutup & Mulai Nonton</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATA INITIALIZATION ---
+        
+        // Dummy Movies
+        const defaultMovies = [
+            { id: 1, title: "Inception", genre: "Sci-Fi", desc: "Seorang pencuri yang merampas rahasia perusahaan melalui penggunaan teknologi berbagi mimpi.", year: 2010, rating: 8.8, thumb: "https://picsum.photos/seed/inc/300/450", videoId: "8hP9D6kZseM" },
+            { id: 2, title: "The Dark Knight", genre: "Action", desc: "Ketika ancaman yang dikenal sebagai Joker membuat kekacauan pada rakyat Gotham, Batman harus menerima salah satu tes psikologis dan fisik terbesarnya.", year: 2008, rating: 9.0, thumb: "https://picsum.photos/seed/tdk/300/450", videoId: "EXeTwQWrcwY" },
+            { id: 3, title: "Parasite", genre: "Drama", desc: "Keserakahan dan diskriminasi kelas mengancam hubungan simbiosis yang baru terbentuk antara keluarga Park yang kaya dan klan Kim yang miskin.", year: 2019, rating: 8.5, thumb: "https://picsum.photos/seed/par/300/450", videoId: "5xH0HfJHsaY" },
+            { id: 4, title: "Avengers: Endgame", genre: "Action", desc: "Setelah kejadian yang menghancurkan dari Infinity War, Avengers berkumpul sekali lagi untuk membatalkan tindakan Thanos.", year: 2019, rating: 8.4, thumb: "https://picsum.photos/seed/avg/300/450", videoId: "TcMBFSGVi1c" },
+            { id: 5, title: "Interstellar", genre: "Sci-Fi", desc: "Tim penjelajah melakukan perjalanan melalui lubang cacing di ruang angkasa dalam upaya memastikan kelangsungan hidup umat manusia.", year: 2014, rating: 8.6, thumb: "https://picsum.photos/seed/int/300/450", videoId: "zSWdZVtXT7E" },
+            { id: 6, title: "Toy Story 4", genre: "Animation", desc: "Saat mainan baru bernama Forky bergabung, perjalanan darat mengungkap seberapa besar dunia bagi sebuah mainan.", year: 2019, rating: 7.7, thumb: "https://picsum.photos/seed/toy/300/450", videoId: "wmiIUN-7qhE" },
+            { id: 7, title: "Joker", genre: "Drama", desc: "Di Gotham City, komedian Arthur Fleck yang bermasalah mental diabaikan dan dianiaya oleh masyarakat.", year: 2019, rating: 8.4, thumb: "https://picsum.photos/seed/jok/300/450", videoId: "zAGVQLHvwOY" },
+            { id: 8, title: "The Matrix", genre: "Sci-Fi", desc: "Seorang hacker komputer belajar dari pemberontak misterius tentang sifat sebenarnya dari realitasnya.", year: 1999, rating: 8.7, thumb: "https://picsum.photos/seed/mat/300/450", videoId: "vKQi3bBA1y8" },
+            { id: 9, title: "Gladiator", genre: "Action", desc: "Mantan Jenderal Romawi menuntut balas terhadap kaisar korup yang membunuh keluarganya dan mengirimnya ke perbudakan.", year: 2000, rating: 8.5, thumb: "https://picsum.photos/seed/gla/300/450", videoId: "owK1qxDselE" },
+            { id: 10, title: "Coco", genre: "Animation", desc: "Calon musisi Miguel, dihadapkan pada larangan musik leluhur keluarganya, memasuki Tanah Kematian.", year: 2017, rating: 8.4, thumb: "https://picsum.photos/seed/coc/300/450", videoId: "xlnPHQ3TLX8" },
+            { id: 11, title: "The Shawshank Redemption", genre: "Drama", desc: "Dua pria yang dipenjara menjalin ikatan selama bertahun-tahun, menemukan hiburan dan penebusan penebusan melalui tindakan kesopanan umum.", year: 1994, rating: 9.3, thumb: "https://picsum.photos/seed/shaw/300/450", videoId: "6hB3S9bIaco" },
+            { id: 12, title: "Spirited Away", genre: "Animation", desc: "Dalam perjalanan pindah keluarga ke pinggiran kota, seorang gadis berusia 10 tahun berkelana ke dunia yang diperintah oleh dewa, penyihir, dan roh.", year: 2001, rating: 8.6, thumb: "https://picsum.photos/seed/spi/300/450", videoId: "ByXuk9QqQkk" }
+        ];
+
+        // Dummy Polls
+        const defaultPolls = [
+            { id: 1, title: "Spider-Man: Across the Spider-Verse", votes: 125 },
+            { id: 2, title: "Oppenheimer", votes: 180 },
+            { id: 3, title: "Dune: Part Two", votes: 210 },
+            { id: 4, title: "John Wick: Chapter 4", votes: 95 }
+        ];
+
+        // Initialize Local Storage State
+        if (!localStorage.getItem('stream_movies')) {
+            localStorage.setItem('stream_movies', JSON.stringify(defaultMovies));
+        }
+        if (!localStorage.getItem('stream_polls')) {
+            localStorage.setItem('stream_polls', JSON.stringify(defaultPolls));
+        }
+        if (!localStorage.getItem('stream_users')) {
+            // Default admin user
+            const defaultUsers = [{ name: "Admin", email: "admin@streamsync.com", password: "admin", role: "admin" }];
+            localStorage.setItem('stream_users', JSON.stringify(defaultUsers));
+        }
+        if (!localStorage.getItem('stream_comments')) {
+            localStorage.setItem('stream_comments', JSON.stringify({})); // { movieId: [{user, text}] }
+        }
+
+        // Global State variables
+        let currentUser = JSON.parse(localStorage.getItem('stream_currentUser')) || null;
+        let currentMovieId = null;
+
+        // --- APP LOGIC ---
+
+        function initApp() {
+            updateNavbar();
+            navigate('home');
+        }
+
+        // Navigation
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            // Show target page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Active state on nav if exists
+            const navItem = document.getElementById(`nav-${pageId}`);
+            if (navItem) navItem.classList.add('active');
+
+            // Route specific logic
+            if (pageId === 'home') {
+                renderHomeMovies();
+                renderAiRecommendations();
+            } else if (pageId === 'search') {
+                renderSearchMovies();
+            } else if (pageId === 'polling') {
+                renderPolls();
+            } else if (pageId === 'admin') {
+                if (!currentUser || currentUser.role !== 'admin') {
+                    alert('Akses Ditolak. Halaman ini hanya untuk Admin.');
+                    navigate('home');
+                    return;
+                }
+                switchAdminTab('users');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderMovieCard(movie) {
+            return `
+                <div class="movie-card" onclick="openWatchPage(${movie.id})">
+                    <img src="${movie.thumb}" alt="${movie.title}" class="movie-img" loading="lazy">
+                    <div class="movie-info">
+                        <div class="movie-title">${movie.title}</div>
+                        <div class="movie-meta">
+                            <span>${movie.year} • ${movie.genre}</span>
+                            <span class="movie-rating">⭐ ${movie.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHomeMovies() {
+            const movies = JSON.parse(localStorage.getItem('stream_movies'));
+            const container = document.getElementById('home-movies-grid');
+            // Show top 8 movies on home
+            container.innerHTML = movies.slice(0, 8).map(renderMovieCard).join('');
+        }
+
+        function renderAiRecommendations() {
+            const genre = document.getElementById('ai-genre-filter').value;
+            const movies = JSON.parse(localStorage.getItem('stream_movies'));
+            const container = document.getElementById('ai-movies-grid');
+            
+            let filtered = movies;
+            if (genre !== 'all') {
+                filtered = movies.filter(m => m.genre === genre);
+            }
+            
+            // AI logic simulation: randomize order slightly for "discovery"
+            filtered = filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1;">Belum ada rekomendasi untuk genre ini.</p>`;
+            } else {
+                container.innerHTML = filtered.map(renderMovieCard).join('');
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            renderSearchMovies(query);
+        }
+
+        function renderSearchMovies(query = '') {
+            const movies = JSON.parse(localStorage.getItem('stream_movies'));
+            const container = document.getElementById('search-movies-grid');
+            
+            const filtered = movies.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.genre.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center; padding: 2rem;">Tidak ada konten yang sesuai dengan pencarian.</p>`;
+            } else {
+                container.innerHTML = filtered.map(renderMovieCard).join('');
+            }
+        }
+
+        function openWatchPage(movieId) {
+            if (!currentUser) {
+                alert('Anda harus login terlebih dahulu untuk menonton konten.');
+                navigate('auth');
+                return;
+            }
+
+            const movies = JSON.parse(localStorage.getItem('stream_movies'));
+            const movie = movies.find(m => m.id === movieId);
+            if (!movie) return;
+
+            currentMovieId = movieId;
+            
+            document.getElementById('watch-title').innerText = movie.title;
+            document.getElementById('watch-year').innerText = movie.year;
+            document.getElementById('watch-genre').innerText = movie.genre;
+            document.getElementById('watch-rating').innerText = movie.rating;
+            document.getElementById('watch-desc').innerText = movie.desc;
+            
+            // Placeholder video using youtube embed
+            document.getElementById('video-embed').src = `https://www.youtube.com/embed/${movie.videoId}?autoplay=1&mute=1`;
+
+            renderComments();
+            navigate('watch');
+        }
+
+        // --- FEATURES ---
+
+        function startWatchParty() {
+            const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+            document.getElementById('wp-room-code').innerText = code;
+            document.getElementById('watch-party-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('watch-party-modal').style.display = 'none';
+        }
+
+        function downloadOffline() {
+            alert('Fitur Download Offline disimulasikan. Memulai pengunduhan konten...');
+        }
+
+        function buyPackage(pkgName) {
+            if (!currentUser) {
+                alert('Silakan login untuk berlangganan.');
+                navigate('auth');
+                return;
+            }
+            alert(`Terima kasih! Anda telah memilih paket berlangganan: ${pkgName}. Proses pembayaran disimulasikan selesai.`);
+        }
+
+        // --- COMMUNITY / COMMENTS ---
+
+        function renderComments() {
+            const commentsData = JSON.parse(localStorage.getItem('stream_comments'));
+            const container = document.getElementById('comment-list');
+            const movieComments = commentsData[currentMovieId] || [];
+
+            if (movieComments.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Belum ada komentar. Jadilah yang pertama!</p>`;
+                return;
+            }
+
+            container.innerHTML = movieComments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-author">${c.user}</div>
+                    <div>${c.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const commentsData = JSON.parse(localStorage.getItem('stream_comments'));
+            if (!commentsData[currentMovieId]) commentsData[currentMovieId] = [];
+            
+            commentsData[currentMovieId].push({
+                user: currentUser.name,
+                text: text
+            });
+
+            localStorage.setItem('stream_comments', JSON.stringify(commentsData));
+            input.value = '';
+            renderComments();
+        }
+
+        // --- POLLING ---
+
+        function renderPolls() {
+            const polls = JSON.parse(localStorage.getItem('stream_polls'));
+            const container = document.getElementById('poll-container');
+            const totalVotes = polls.reduce((sum, p) => sum + p.votes, 0);
+
+            container.innerHTML = polls.map(p => {
+                const percentage = totalVotes === 0 ? 0 : Math.round((p.votes / totalVotes) * 100);
+                return `
+                    <div class="poll-option" onclick="votePoll(${p.id})">
+                        <div class="poll-bar-bg">
+                            <div class="poll-bar-fill" style="width: ${percentage}%"></div>
+                            <div class="poll-text">
+                                <span>${p.title}</span>
+                                <span>${percentage}% (${p.votes})</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function votePoll(pollId) {
+            if (!currentUser) {
+                alert('Silakan login untuk mengikuti polling.');
+                navigate('auth');
+                return;
+            }
+            const polls = JSON.parse(localStorage.getItem('stream_polls'));
+            const poll = polls.find(p => p.id === pollId);
+            if (poll) {
+                poll.votes += 1;
+                localStorage.setItem('stream_polls', JSON.stringify(polls));
+                renderPolls();
+                alert('Terima kasih atas voting Anda!');
+            }
+        }
+
+        // --- AUTHENTICATION ---
+
+        function toggleAuth(type) {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('reg-error').style.display = 'none';
+            
+            if (type === 'register') {
+                document.getElementById('login-form-container').style.display = 'none';
+                document.getElementById('register-form-container').style.display = 'block';
+            } else {
+                document.getElementById('register-form-container').style.display = 'none';
+                document.getElementById('login-form-container').style.display = 'block';
+            }
+        }
+
+        function updateNavbar() {
+            const authSection = document.getElementById('auth-section');
+            const adminNav = document.getElementById('nav-admin');
+
+            if (currentUser) {
+                authSection.innerHTML = `
+                    <span style="color: var(--text-muted); margin-right: 1rem;">Halo, ${currentUser.name}</span>
+                    <button class="btn btn-outline" onclick="handleLogout()">Logout</button>
+                `;
+                adminNav.style.display = currentUser.role === 'admin' ? 'inline' : 'none';
+            } else {
+                authSection.innerHTML = `
+                    <button class="btn" onclick="navigate('auth')">Login / Daftar</button>
+                `;
+                adminNav.style.display = 'none';
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const errorDiv = document.getElementById('reg-error');
+
+            if (!name || !email || password.length < 6) {
+                errorDiv.innerText = 'Mohon isi form dengan benar. Password minimal 6 karakter.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('stream_users'));
+            if (users.find(u => u.email === email)) {
+                errorDiv.innerText = 'Email sudah terdaftar!';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            const newUser = { name, email, password, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('stream_users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('stream_currentUser', JSON.stringify(currentUser));
+            
+            updateNavbar();
+            navigate('home');
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            const users = JSON.parse(localStorage.getItem('stream_users'));
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('stream_currentUser', JSON.stringify(currentUser));
+                updateNavbar();
+                navigate('home');
+            } else {
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('stream_currentUser');
+            updateNavbar();
+            navigate('home');
+        }
+
+        // --- ADMIN DASHBOARD ---
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const panel = document.getElementById('admin-panel-content');
+            
+            if (tab === 'users') {
+                const users = JSON.parse(localStorage.getItem('stream_users'));
+                panel.innerHTML = `
+                    <h2>Kelola Pengguna</h2>
+                    <table style="margin-top: 1rem;">
+                        <tr><th>Nama</th><th>Email</th><th>Role</th></tr>
+                        ${users.map(u => `
+                            <tr>
+                                <td>${u.name}</td>
+                                <td>${u.email}</td>
+                                <td><span class="badge ${u.role === 'admin' ? 'admin' : ''}">${u.role.toUpperCase()}</span></td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                `;
+            } else if (tab === 'movies') {
+                const movies = JSON.parse(localStorage.getItem('stream_movies'));
+                panel.innerHTML = `
+                    <h2>Kelola Konten Film</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 1rem;">Simulasi daftar film yang tersedia di database.</p>
+                    <table>
+                        <tr><th>Judul</th><th>Genre</th><th>Tahun</th><th>Rating</th></tr>
+                        ${movies.map(m => `
+                            <tr>
+                                <td>${m.title}</td>
+                                <td>${m.genre}</td>
+                                <td>${m.year}</td>
+                                <td>⭐ ${m.rating}</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                `;
+            } else if (tab === 'polls') {
+                const polls = JSON.parse(localStorage.getItem('stream_polls'));
+                panel.innerHTML = `
+                    <h2>Kelola Data Polling</h2>
+                    <button class="btn btn-outline" style="margin: 1rem 0;" onclick="alert('Fitur tambah opsi polling disimulasikan')">+ Tambah Opsi Polling</button>
+                    <table>
+                        <tr><th>Kandidat Film</th><th>Jumlah Voting</th><th>Aksi</th></tr>
+                        ${polls.map(p => `
+                            <tr>
+                                <td>${p.title}</td>
+                                <td>${p.votes} votes</td>
+                                <td><button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" onclick="alert('Fitur reset disimulasikan')">Reset</button></td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                `;
+            }
+        }
+
+        // Initialize App on load
+        window.onload = initApp;
+
+    </script>
+</body>
+</html>

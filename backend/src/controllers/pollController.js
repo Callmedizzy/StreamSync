@@ -1,5 +1,5 @@
-import Movie from "../models/Movie.js";
-import Poll from "../models/Poll.js";
+// import Movie from "../models/Movie.js";
+// import Poll from "../models/Poll.js";
 
 export const listPolls = async (req, res, next) => {
   try {
