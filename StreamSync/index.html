@@ -44,8 +44,10 @@
              HOME VIEW
              ============================================== -->
                 <section id="view-home" class="view-section">
-            <div id="hero-banner" class="hero">
-                <div class="hero-content">
+            <div id="hero-banner" class="hero" style="overflow: hidden;">
+                <iframe id="hero-video" class="hero-video" src="" frameborder="0" allow="autoplay; encrypted-media" style="position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; transform: translate(-50%, -50%); z-index: 0; pointer-events: none;"></iframe>
+                
+                <div class="hero-content" style="z-index: 2;">
                     <div class="hero-badge" id="hero-badge">S E R I E S</div>
                     <h1 id="hero-title" style="font-size: 4.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Movie Title</h1>
                     <div class="hero-meta" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
@@ -58,7 +60,7 @@
                     </div>
                 </div>
                 <div class="hero-volume">
-                    <button style="background:transparent; border:1px solid white; color:white; border-radius:50%; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center;">🔊</button>
+                    <button id="btn-mute" onclick="toggleMute()" style="background:transparent; border:1px solid white; color:white; border-radius:50%; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index: 5;">🔇</button>
                 </div>
             </div>
 

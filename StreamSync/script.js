@@ -86,8 +86,16 @@
             const movies = db.movies;
             if (movies.length === 0) return;
 
-            // Random Hero Movie
+                        // Random Hero Movie
             const heroMovie = movies[Math.floor(Math.random() * movies.length)];
+            
+            // Set Hero Video
+            if (heroMovie.video) {
+                const videoId = heroMovie.video.split('/').pop();
+                const iframeSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&start=30&loop=1&playlist=${videoId}&controls=0&enablejsapi=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`;
+                document.getElementById('hero-video').src = iframeSrc;
+            }
+            
             document.getElementById('hero-banner').style.backgroundImage = `url(${heroMovie.thumb.replace('300/450', '1200/600')})`;
             document.getElementById('hero-title').innerText = heroMovie.title;
             document.getElementById('hero-desc').innerText = heroMovie.desc;
@@ -209,6 +217,22 @@
             saveDb();
             input.value = '';
             renderComments();
+        }
+
+        
+        let isHeroMuted = true;
+        function toggleMute() {
+            const iframe = document.getElementById('hero-video').contentWindow;
+            const btn = document.getElementById('btn-mute');
+            if (isHeroMuted) {
+                iframe.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                btn.innerText = '🔊';
+                isHeroMuted = false;
+            } else {
+                iframe.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                btn.innerText = '🔇';
+                isHeroMuted = true;
+            }
         }
 
         // Actions Features

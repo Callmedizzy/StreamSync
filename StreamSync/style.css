@@ -185,6 +185,7 @@
         }
 
         .hero::before {
+            z-index: 1;
             content: '';
             position: absolute;
             inset: 0;
@@ -192,6 +193,7 @@
         }
 
         .hero::after {
+            z-index: 1;
             content: '';
             position: absolute;
             bottom: 0;
