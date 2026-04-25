@@ -4,7 +4,7 @@ StreamSync adalah platform streaming video berbasis web yang dirancang sebagai a
 
 ## 🔗 Link Penting
 
-- **🌐 Live Website:** [https://callmedizzy.github.io/StreamSync](https://callmedizzy.github.io/StreamSync)
+- **🌐 Live Website:** [https://callmedizzy.github.io/StreamSync](https://stream-sync-five.vercel.app)
 - **📁 Repository:** [https://github.com/Callmedizzy/StreamSync](https://github.com/Callmedizzy/StreamSync)
 
 ---
