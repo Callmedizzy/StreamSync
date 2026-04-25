@@ -35,6 +35,66 @@
             { id: 30, title: 'Everything Everywhere', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/eea/300/450', desc: 'An aging Chinese immigrant is swept up in an insane adventure across universes.', year: 2022, rating: 7.8, video: 'https://www.youtube.com/embed/wxN1T1uxQ2g' },
             { id: 31, title: 'Wednesday', genre: 'Horror', thumb: 'https://picsum.photos/seed/wed/300/450', desc: 'Follows Wednesday Addams\' years as a student mastering her emerging psychic ability.', year: 2022, rating: 8.1, video: 'https://www.youtube.com/embed/Di310WS8zLk' },
             { id: 32, title: 'Loki', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/loki/300/450', desc: 'The mercurial villain Loki resumes his role as the God of Mischief.', year: 2021, rating: 8.2, video: 'https://www.youtube.com/embed/nW948Va-l10' }
+,
+            { id: 33, title: 'Mad Max Fury Road', genre: 'Action', thumb: 'https://picsum.photos/seed/madmax/300/450', desc: 'In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler.', year: 2015, rating: 8.1, video: 'https://www.youtube.com/embed/dhflJDFiIXV' },
+            { id: 34, title: 'Mission Impossible', genre: 'Action', thumb: 'https://picsum.photos/seed/missio/300/450', desc: 'An American agent, under false suspicion of disloyalty, must discover and expose the real spy.', year: 1996, rating: 7.1, video: 'https://www.youtube.com/embed/Sd4FyQCjOt4' },
+            { id: 35, title: 'Fast Furious', genre: 'Action', thumb: 'https://picsum.photos/seed/fastfu/300/450', desc: 'Los Angeles police officer Brian O\'Conner must decide where his loyalty really lies.', year: 2001, rating: 6.8, video: 'https://www.youtube.com/embed/9hBfrApF6KB' },
+            { id: 36, title: 'John Wick 4', genre: 'Action', thumb: 'https://picsum.photos/seed/johnwi/300/450', desc: 'John Wick uncovers a path to defeating The High Table.', year: 2023, rating: 7.7, video: 'https://www.youtube.com/embed/wtlqct9hPAN' },
+            { id: 37, title: 'Black Panther', genre: 'Action', thumb: 'https://picsum.photos/seed/blackp/300/450', desc: 'T\'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people.', year: 2018, rating: 7.3, video: 'https://www.youtube.com/embed/04qpYd7fIVT' },
+            { id: 38, title: 'Thor Ragnarok', genre: 'Action', thumb: 'https://picsum.photos/seed/thorra/300/450', desc: 'Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard.', year: 2017, rating: 7.9, video: 'https://www.youtube.com/embed/oRviP4rKCHr' },
+            { id: 39, title: 'Captain America', genre: 'Action', thumb: 'https://picsum.photos/seed/captai/300/450', desc: 'Steve Rogers, a rejected military soldier, transforms into Captain America.', year: 2011, rating: 6.9, video: 'https://www.youtube.com/embed/5ifiGNHJKFE' },
+            { id: 40, title: 'Transformers', genre: 'Action', thumb: 'https://picsum.photos/seed/transf/300/450', desc: 'An ancient struggle between two Cybertronian races comes to Earth.', year: 2007, rating: 7.0, video: 'https://www.youtube.com/embed/dfNjyrSYUdQ' },
+            { id: 41, title: 'Die Hard', genre: 'Action', thumb: 'https://picsum.photos/seed/diehar/300/450', desc: 'An NYPD officer tries to save his wife and several others taken hostage by German terrorists.', year: 1988, rating: 8.2, video: 'https://www.youtube.com/embed/GrfiqJBGZ56' },
+            { id: 42, title: 'Gladiator', genre: 'Action', thumb: 'https://picsum.photos/seed/gladia/300/450', desc: 'A former Roman General sets out to exact vengeance against the corrupt emperor.', year: 2000, rating: 8.5, video: 'https://www.youtube.com/embed/7V0SEiNw1pg' },
+            { id: 43, title: 'The Raid', genre: 'Action', thumb: 'https://picsum.photos/seed/therai/300/450', desc: 'A S.W.A.T. team becomes trapped in a tenement run by a ruthless mobster.', year: 2011, rating: 7.6, video: 'https://www.youtube.com/embed/hvOt8XcAAYs' },
+            { id: 44, title: 'Extraction', genre: 'Action', thumb: 'https://picsum.photos/seed/extrac/300/450', desc: 'Tyler Rake, a fearless black market mercenary, embarks on the most deadly extraction of his career.', year: 2020, rating: 6.7, video: 'https://www.youtube.com/embed/B6ag7WRGEza' },
+            { id: 45, title: 'Nobody', genre: 'Action', thumb: 'https://picsum.photos/seed/nobody/300/450', desc: 'A bystander who intervenes to help a woman being harassed by a group of men becomes the target of a vengeful drug lord.', year: 2021, rating: 7.4, video: 'https://www.youtube.com/embed/TdP1Ozo2CuR' },
+            { id: 46, title: 'Army of Darkness', genre: 'Action', thumb: 'https://picsum.photos/seed/armyof/300/450', desc: 'A man is accidentally transported to 1300 A.D., where he must battle an army of the dead.', year: 1992, rating: 7.4, video: 'https://www.youtube.com/embed/fJ1XljPe8sh' },
+            { id: 47, title: 'Arrival', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/arriva/300/450', desc: 'A linguist works with the military to communicate with alien lifeforms.', year: 2016, rating: 7.9, video: 'https://www.youtube.com/embed/hU7d48x7uzr' },
+            { id: 48, title: 'Ex Machina', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/exmach/300/450', desc: 'A young programmer is selected to participate in a ground-breaking experiment in synthetic intelligence.', year: 2014, rating: 7.7, video: 'https://www.youtube.com/embed/kZmQ9qUwoj5' },
+            { id: 49, title: 'Blade Runner 2049', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/blader/300/450', desc: 'Young Blade Runner K\'s discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard.', year: 2017, rating: 8.0, video: 'https://www.youtube.com/embed/hlGnHGP4ipk' },
+            { id: 50, title: 'Tenet', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/tenet/300/450', desc: 'Armed with only one word, Tenet, and fighting for the survival of the entire world.', year: 2020, rating: 7.3, video: 'https://www.youtube.com/embed/uDdsFWb1CbT' },
+            { id: 51, title: 'Gravity', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/gravit/300/450', desc: 'Two astronauts work together to survive after an accident leaves them stranded in space.', year: 2013, rating: 7.7, video: 'https://www.youtube.com/embed/TJzFDexjwZv' },
+            { id: 52, title: 'The Martian', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/themar/300/450', desc: 'An astronaut becomes stranded on Mars after his team assume him dead.', year: 2015, rating: 8.0, video: 'https://www.youtube.com/embed/SbrivHeAXfu' },
+            { id: 53, title: 'Ready Player One', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/readyp/300/450', desc: 'When the creator of a virtual reality called the OASIS dies, he makes a posthumous challenge.', year: 2018, rating: 7.4, video: 'https://www.youtube.com/embed/fBT3nKNMQyI' },
+            { id: 54, title: 'Altered Carbon', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/altere/300/450', desc: 'Set in a future where consciousness is digitized and stored.', year: 2018, rating: 7.9, video: 'https://www.youtube.com/embed/3Tn38jrtjyH' },
+            { id: 55, title: 'Dark', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/dark/300/450', desc: 'A family saga with a supernatural twist, set in a German town.', year: 2017, rating: 8.7, video: 'https://www.youtube.com/embed/ZUUfHX4Alvw' },
+            { id: 56, title: 'Severance', genre: 'Sci-Fi', thumb: 'https://picsum.photos/seed/severa/300/450', desc: 'Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives.', year: 2022, rating: 8.7, video: 'https://www.youtube.com/embed/O7HRFP8CJll' },
+            { id: 57, title: 'Hereditary', genre: 'Horror', thumb: 'https://picsum.photos/seed/heredi/300/450', desc: 'A grieving family is haunted by tragic and disturbing occurrences.', year: 2018, rating: 7.3, video: 'https://www.youtube.com/embed/vXB9tfvEPfC' },
+            { id: 58, title: 'Midsommar', genre: 'Horror', thumb: 'https://picsum.photos/seed/midsom/300/450', desc: 'A couple travels to Sweden to visit a rural hometown\'s fabled mid-summer festival.', year: 2019, rating: 7.1, video: 'https://www.youtube.com/embed/cM2cpt8H0ap' },
+            { id: 59, title: 'A Quiet Place', genre: 'Horror', thumb: 'https://picsum.photos/seed/aquiet/300/450', desc: 'A family struggles for survival in a world where most humans have been killed by blind but noise-sensitive creatures.', year: 2018, rating: 7.5, video: 'https://www.youtube.com/embed/CND0N97ZD5x' },
+            { id: 60, title: 'Us', genre: 'Horror', thumb: 'https://picsum.photos/seed/us/300/450', desc: 'A family\'s serene beach vacation turns to chaos when their doppelgängers appear and begin to terrorize them.', year: 2019, rating: 6.8, video: 'https://www.youtube.com/embed/onwPiXvIvQX' },
+            { id: 61, title: 'Nope', genre: 'Horror', thumb: 'https://picsum.photos/seed/nope/300/450', desc: 'The residents of a lonely gulch in inland California bear witness to an uncanny and chilling discovery.', year: 2022, rating: 6.8, video: 'https://www.youtube.com/embed/wmzbHNivS8B' },
+            { id: 62, title: 'The Haunting of Hill House', genre: 'Horror', thumb: 'https://picsum.photos/seed/thehau/300/450', desc: 'Flashing between past and present, a fractured family confronts haunting memories of their old home.', year: 2018, rating: 8.6, video: 'https://www.youtube.com/embed/4nAsX414diI' },
+            { id: 63, title: 'Annihilation', genre: 'Horror', thumb: 'https://picsum.photos/seed/annihi/300/450', desc: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature don\'t apply.', year: 2018, rating: 6.8, video: 'https://www.youtube.com/embed/vITHxu14TyN' },
+            { id: 64, title: 'The Babadook', genre: 'Horror', thumb: 'https://picsum.photos/seed/thebab/300/450', desc: 'A single mother and her child fall into a deep well of paranoia when an eerie children\'s book manifests in their home.', year: 2014, rating: 6.8, video: 'https://www.youtube.com/embed/qlTqvY3QZH8' },
+            { id: 65, title: 'Sinister', genre: 'Horror', thumb: 'https://picsum.photos/seed/sinist/300/450', desc: 'Washed-up true crime writer Ellison Oswalt finds a box of super 8 home movies in his new home.', year: 2012, rating: 6.8, video: 'https://www.youtube.com/embed/skJYNqX3sDp' },
+            { id: 66, title: 'Malignant', genre: 'Horror', thumb: 'https://picsum.photos/seed/malign/300/450', desc: 'Madison is paralyzed by shocking visions of grisly murders, and her torment worsens as she discovers that these waking dreams are in fact terrifying realities.', year: 2021, rating: 6.2, video: 'https://www.youtube.com/embed/RFpMqCToG2L' },
+            { id: 67, title: 'Succession', genre: 'Drama', thumb: 'https://picsum.photos/seed/succes/300/450', desc: 'The Roy family is known for controlling the biggest media and entertainment company in the world.', year: 2018, rating: 8.8, video: 'https://www.youtube.com/embed/1lYecE0qIcw' },
+            { id: 68, title: 'Euphoria', genre: 'Drama', thumb: 'https://picsum.photos/seed/euphor/300/450', desc: 'A look at life for a group of high school students as they grapple with issues of drugs, sex, and violence.', year: 2019, rating: 8.3, video: 'https://www.youtube.com/embed/BJ5cY3Xk0Dy' },
+            { id: 69, title: 'The Crown', genre: 'Drama', thumb: 'https://picsum.photos/seed/thecro/300/450', desc: 'Follows the political rivalries and romance of Queen Elizabeth II\'s reign and the events that shaped the second half of the twentieth century.', year: 2016, rating: 8.6, video: 'https://www.youtube.com/embed/lVZAVQPQE7y' },
+            { id: 70, title: 'Ozark', genre: 'Drama', thumb: 'https://picsum.photos/seed/ozark/300/450', desc: 'A financial advisor drags his family from Chicago to the Missouri Ozarks, where he must launder money to appease a drug boss.', year: 2017, rating: 8.5, video: 'https://www.youtube.com/embed/aD4oZu8V0uf' },
+            { id: 71, title: 'Better Call Saul', genre: 'Drama', thumb: 'https://picsum.photos/seed/better/300/450', desc: 'The trials and tribulations of criminal lawyer Jimmy McGill in the time leading up to establishing his strip-mall law office in Albuquerque, New Mexico.', year: 2015, rating: 8.9, video: 'https://www.youtube.com/embed/l5ohX5InNQD' },
+            { id: 72, title: 'The Last of Us', genre: 'Drama', thumb: 'https://picsum.photos/seed/thelas/300/450', desc: 'After a global pandemic destroys civilization, a hardened survivor takes charge of a 14-year-old girl who may be humanity\'s last hope.', year: 2023, rating: 8.8, video: 'https://www.youtube.com/embed/CPDVZZLWg4d' },
+            { id: 73, title: 'House of Cards', genre: 'Drama', thumb: 'https://picsum.photos/seed/houseo/300/450', desc: 'A Congressman works with his equally conniving wife to exact revenge on the people who betrayed him.', year: 2013, rating: 8.7, video: 'https://www.youtube.com/embed/hMVpzK2kP5m' },
+            { id: 74, title: 'Yellowstone', genre: 'Drama', thumb: 'https://picsum.photos/seed/yellow/300/450', desc: 'A ranching family in Montana faces off against others encroaching on their land.', year: 2018, rating: 8.7, video: 'https://www.youtube.com/embed/SnZoBSnX8qV' },
+            { id: 75, title: 'Dahmer', genre: 'Drama', thumb: 'https://picsum.photos/seed/dahmer/300/450', desc: 'Story of the Milwaukee Monster told from the perspective of the victims and police incompetency.', year: 2022, rating: 7.9, video: 'https://www.youtube.com/embed/GEwnSvS08DP' },
+            { id: 76, title: 'Narcos', genre: 'Drama', thumb: 'https://picsum.photos/seed/narcos/300/450', desc: 'A chronicled look at the criminal exploits of Colombian drug lord Pablo Escobar.', year: 2015, rating: 8.8, video: 'https://www.youtube.com/embed/Zfl2syVTfGw' },
+            { id: 77, title: 'House of Dragon', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/houseo/300/450', desc: 'An internal succession war within House Targaryen at the height of its power.', year: 2022, rating: 8.4, video: 'https://www.youtube.com/embed/us5XxPXGelE' },
+            { id: 78, title: 'The Rings of Power', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/therin/300/450', desc: 'Epic drama set thousands of years before the events of The Lord of the Rings.', year: 2022, rating: 6.9, video: 'https://www.youtube.com/embed/NUUrXrFi1hg' },
+            { id: 79, title: 'Carnival Row', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/carniv/300/450', desc: 'A human detective and a fairy rekindle a dangerous affair in a Victorian fantasy world.', year: 2019, rating: 7.7, video: 'https://www.youtube.com/embed/2a7l8if9LTs' },
+            { id: 80, title: 'Shadow and Bone', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/shadow/300/450', desc: 'Dark forces conspire against orphan mapmaker Alina Starkov when she unleashes an extraordinary power.', year: 2021, rating: 7.5, video: 'https://www.youtube.com/embed/KqyTGRiOSFs' },
+            { id: 81, title: 'The Sandman', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/thesan/300/450', desc: 'Dream, the personification of dreams, sets about to reclaim his lost equipment.', year: 2022, rating: 7.7, video: 'https://www.youtube.com/embed/e8uRPd9dxDq' },
+            { id: 82, title: 'Willow', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/willow/300/450', desc: 'A group of mismatched heroes set off on a dangerous quest to places far beyond their home.', year: 2022, rating: 5.6, video: 'https://www.youtube.com/embed/sA7frj8Jurq' },
+            { id: 83, title: 'Wheel of Time', genre: 'Fantasy', thumb: 'https://picsum.photos/seed/wheelo/300/450', desc: 'A woman named Moiraine crosses paths with five young men and women in a magical world.', year: 2021, rating: 7.1, video: 'https://www.youtube.com/embed/n1iQUZ0nuFz' },
+            { id: 84, title: 'Lupin', genre: 'Thriller', thumb: 'https://picsum.photos/seed/lupin/300/450', desc: 'Gentleman thief Assane Diop sets out to avenge his father for an injustice inflicted by a wealthy family.', year: 2021, rating: 7.5, video: 'https://www.youtube.com/embed/dkeDNAlKgY1' },
+            { id: 85, title: 'Dark Knight Rises', genre: 'Thriller', thumb: 'https://picsum.photos/seed/darkkn/300/450', desc: 'Batman is forced from his exile to save Gotham City from the brutal guerrilla terrorist Bane.', year: 2012, rating: 8.4, video: 'https://www.youtube.com/embed/xq1annHfHTq' },
+            { id: 86, title: 'Se7en', genre: 'Thriller', thumb: 'https://picsum.photos/seed/seen/300/450', desc: 'Two detectives hunt a serial killer who uses the seven deadly sins as his motives.', year: 1995, rating: 8.6, video: 'https://www.youtube.com/embed/ySjOZT9q7mm' },
+            { id: 87, title: 'Gone Girl', genre: 'Thriller', thumb: 'https://picsum.photos/seed/gonegi/300/450', desc: 'A man sees the spotlight turned on him when it\'s suspected that he may not be innocent in his wife\'s disappearance.', year: 2014, rating: 8.1, video: 'https://www.youtube.com/embed/OCfIGakiE3j' },
+            { id: 88, title: 'Knives Out', genre: 'Thriller', thumb: 'https://picsum.photos/seed/knives/300/450', desc: 'A detective investigates the death of a patriarch of an eccentric, combative family.', year: 2019, rating: 7.9, video: 'https://www.youtube.com/embed/NZq21ypyBJA' },
+            { id: 89, title: 'Glass Onion', genre: 'Thriller', thumb: 'https://picsum.photos/seed/glasso/300/450', desc: 'Famed Southern detective Benoit Blanc travels to Greece for his latest case.', year: 2022, rating: 7.1, video: 'https://www.youtube.com/embed/shGBH7eYnZO' },
+            { id: 90, title: 'The Recruit', genre: 'Thriller', thumb: 'https://picsum.photos/seed/therec/300/450', desc: 'A CIA lawyer becomes enmeshed in dangerous international power politics.', year: 2022, rating: 7.4, video: 'https://www.youtube.com/embed/BWFuit4jAJs' },
+            { id: 91, title: 'Ripley', genre: 'Thriller', thumb: 'https://picsum.photos/seed/ripley/300/450', desc: 'A grifter named Ripley is hired to begin a complex life of deceit, fraud and murder.', year: 2024, rating: 8.1, video: 'https://www.youtube.com/embed/9yowzub6LPh' }
         ];
 
         // Initial DB structure
@@ -109,6 +169,44 @@
         }
 
 
+        
+        let heroInterval;
+        
+        function rotateHero() {
+            const heroContent = document.querySelector('.hero-content');
+            const heroVideo = document.getElementById('hero-video');
+            const heroBanner = document.getElementById('hero-banner');
+            
+            // Fade out
+            if(heroContent) heroContent.style.opacity = '0';
+            if(heroVideo) heroVideo.style.opacity = '0';
+            
+            setTimeout(() => {
+                const movies = db.movies;
+                if(!movies || movies.length === 0) return;
+                const heroMovie = movies[Math.floor(Math.random() * movies.length)];
+                
+                if (heroMovie.video) {
+                    const videoId = heroMovie.video.split('/').pop();
+                    const iframeSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&start=30&loop=1&playlist=${videoId}&controls=0&enablejsapi=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`;
+                    if(heroVideo) heroVideo.src = iframeSrc;
+                }
+                
+                if(heroBanner) heroBanner.style.backgroundImage = `url(${heroMovie.thumb.replace('300/450', '1200/600')})`;
+                
+                document.getElementById('hero-title').innerText = heroMovie.title;
+                document.getElementById('hero-desc').innerText = heroMovie.desc;
+                document.getElementById('hero-year').innerText = heroMovie.year;
+                document.getElementById('hero-genre').innerText = heroMovie.genre;
+                document.getElementById('hero-rating').innerText = heroMovie.rating;
+                document.getElementById('hero-play-btn').onclick = () => goToDetail(heroMovie.id);
+                
+                // Fade in
+                if(heroContent) heroContent.style.opacity = '1';
+                if(heroVideo) heroVideo.style.opacity = '1';
+            }, 500); // Wait for fade out
+        }
+
         // Home View
         function renderHome() {
             const movies = db.movies;
@@ -125,6 +223,9 @@
             }
             
             document.getElementById('hero-banner').style.backgroundImage = `url(${heroMovie.thumb.replace('300/450', '1200/600')})`;
+            
+            if (heroInterval) clearInterval(heroInterval);
+            heroInterval = setInterval(rotateHero, 7000);
             document.getElementById('hero-title').innerText = heroMovie.title;
             document.getElementById('hero-desc').innerText = heroMovie.desc;
             document.getElementById('hero-year').innerText = heroMovie.year;
